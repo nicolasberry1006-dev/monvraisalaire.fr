@@ -40,9 +40,7 @@ function calc() {
   resteEl.innerHTML = "🟢 Reste : " + reste.toFixed(0) + "€ (" + ratio.toFixed(0) + "%)";
   resteEl.className = "reste " + classe;
 
-  document.getElementById("detailDepenses").innerHTML = `
-    🏠 ${loyer}€ | 🛒 ${courses}€ | 🚗 ${transport}€ <br>
-    💡 ${factures}€ | 🎮 ${loisirs}€ | 📦 ${autres}€
+
   `;
 
   document.getElementById("analyse").innerHTML = `

@@ -60,13 +60,11 @@ if (netImpot <= 0) {
   resteEl.innerHTML = "🟢 Reste : " + reste.toFixed(0) + "€ (" + ratio.toFixed(0) + "%)";
   resteEl.className = "reste " + classe;
 
-  document.getElementById("analyse").innerHTML = `
-    <p>${message}</p>
-    <p><b>${wow}</b></p>
-    <p>📊 Salaire médian France : ~${median}€</p>
-    <p>📈 Ton niveau : <b>${niveau}</b></p>
-  `;
-
+document.getElementById("analyse").innerHTML = `
+  <p>📊 Salaire médian France : ~${median}€</p>
+  <p>📈 Ton niveau : <b>${niveau}</b></p>
+  <p>💶 Écart avec la moyenne : <b>${diff.toFixed(0)}€</b></p>
+`;
   document.getElementById("barDepenses").style.width =
     (depenses / netImpot) * 100 + "%";
 

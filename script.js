@@ -18,14 +18,25 @@ function calc() {
 
   let classe = "good";
   let message = "🔥 Très bon niveau de vie";
+  let wow = "";
+  let niveau = "";
 
   if (ratio < 20) {
     classe = "bad";
     message = "⚠️ Reste à vivre faible";
+    wow = "😬 Tu es en zone à risque financière";
+    niveau = "En dessous de la moyenne";
   } else if (ratio < 40) {
     classe = "mid";
     message = "👍 Situation correcte";
+    wow = "🙂 Tu peux encore optimiser ton budget";
+    niveau = "Dans la moyenne";
+  } else {
+    wow = "🚀 Excellent niveau financier";
+    niveau = "Au-dessus de la moyenne";
   }
+
+  let median = 1800;
 
   document.getElementById("net").innerText = net.toFixed(0) + "€";
   document.getElementById("netImpot").innerText = netImpot.toFixed(0) + "€";
@@ -35,11 +46,27 @@ function calc() {
   resteEl.innerHTML = "🟢 Reste : " + reste.toFixed(0) + "€ (" + ratio.toFixed(0) + "%)";
   resteEl.className = "reste " + classe;
 
-  document.getElementById("analyse").innerText = message;
+  document.getElementById("analyse").innerHTML = `
+    <p>${message}</p>
+    <p><b>${wow}</b></p>
+    <p>📊 Salaire médian France : ~${median}€</p>
+    <p>📈 Ton niveau : <b>${niveau}</b></p>
+  `;
 
   document.getElementById("barDepenses").style.width =
     (depenses / netImpot) * 100 + "%";
 
   document.getElementById("barReste").style.width =
     (reste / netImpot) * 100 + "%";
+}
+
+// 📲 PARTAGE SIMPLE
+function partager() {
+  let texte = document.getElementById("reste").innerText;
+
+  navigator.clipboard.writeText(
+    "💰 Mon vrai salaire : " + texte + " → monvraisalaire.fr"
+  );
+
+  alert("Résultat copié ! Tu peux le partager 🚀");
 }

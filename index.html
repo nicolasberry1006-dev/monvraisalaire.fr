@@ -1,0 +1,54 @@
+<div class="container">
+
+  <h1>Calculateur salaire brut en net</h1>
+
+  <input type="number" id="brut" value="4000" placeholder="Salaire brut mensuel">
+
+  <select id="statut">
+    <option value="0.22">Salarié</option>
+    <option value="0.25">Cadre</option>
+    <option value="0.22">Micro-entrepreneur</option>
+    <option value="0.45">Société (SASU / EURL)</option>
+  </select>
+
+  <p class="info" id="info"></p>
+
+  <input type="number" id="impot" value="10" placeholder="Taux impôt (%)">
+
+  <h3>Dépenses mensuelles</h3>
+
+  <input type="number" id="loyer" value="900" placeholder="Loyer">
+  <input type="number" id="courses" value="400" placeholder="Courses">
+  <input type="number" id="transport" value="200" placeholder="Transport">
+  <input type="number" id="loisirs" value="200" placeholder="Loisirs">
+
+  <button onclick="calc()">Calculer</button>
+
+  <div class="result-card">
+    <h2>Résultat</h2>
+
+    <p>💵 Net estimé : <b id="net">-</b></p>
+    <p>💸 Après impôt : <b id="netImpot">-</b></p>
+    <p>💰 Dépenses : <b id="depenses">-</b></p>
+
+    <p id="reste" class="reste">-</p>
+
+    <div class="bar-container">
+      <div id="barDepenses" class="bar red"></div>
+      <div id="barReste" class="bar blue"></div>
+    </div>
+
+    <p id="analyse"></p>
+
+    <div class="cta">
+      💡 Optimiser ton budget :
+      <br>
+      <a href="#">➡️ Comparer les meilleures banques</a>
+    </div>
+  </div>
+
+  <p class="disclaimer">
+    ⚠️ Ceci est une estimation basée sur des moyennes nationales. Les résultats peuvent varier selon votre situation réelle.
+  </p>
+
+</div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculateur salaire réel</title>
+  <title>Mon vrai salaire</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -11,8 +11,10 @@
 
 <div class="container">
 
-  <h1>💰 Calculateur salaire brut en net</h1>
+  <h1>💰 Combien te reste-t-il vraiment ?</h1>
+  <p class="subtitle">Après charges, impôts et dépenses</p>
 
+  <!-- INPUTS PRINCIPAUX -->
   <input type="number" id="brut" value="3500" placeholder="Salaire brut">
 
   <select id="statut">
@@ -22,79 +24,54 @@
     <option value="0.45">Société</option>
   </select>
 
-<div class="input-group">
-  <span>🏛️</span>
-  <input type="number" id="impot" value="10" placeholder="Taux d'impôt (%)">
-</div>
-
-  <h3>📉 Dépenses mensuelles détaillées</h3>
-
-<div class="input-group">
-  <span>🏠</span>
-  <input type="number" id="loyer" value="900" placeholder="Loyer / crédit">
-</div>
-
-<div class="input-group">
-  <span>🛒</span>
-  <input type="number" id="courses" value="400" placeholder="Courses">
-</div>
-
-<div class="input-group">
-  <span>🚗</span>
-  <input type="number" id="transport" value="200" placeholder="Transport">
-</div>
-
-<div class="input-group">
-  <span>💡</span>
-  <input type="number" id="factures" value="100" placeholder="Factures">
-</div>
-
-<div class="input-group">
-  <span>🎮</span>
-  <input type="number" id="loisirs" value="200" placeholder="Loisirs">
-</div>
-
-<div class="input-group">
-  <span>📦</span>
-  <input type="number" id="autres" value="100" placeholder="Autres">
-</div>
+  <div class="input-group">
+    <span>🏛️</span>
+    <input type="number" id="impot" value="10" placeholder="Impôt (%)">
+  </div>
 
   <button onclick="calc()">Calculer</button>
 
+  <!-- RESULTAT (REMONTÉ) -->
   <div class="card">
 
     <h2>Résultat</h2>
 
     <p>💵 Net estimé : <b id="net">-</b></p>
     <p>💸 Après impôt : <b id="netImpot">-</b></p>
-    <p>💰 Dépenses : <b id="depenses">-</b></p>
 
     <p id="reste" class="reste">-</p>
 
     <div class="bar-container">
       <div id="barDepenses" class="bar red"></div>
-      <div id="barReste" class="bar blue"></div>
+      <div id="barReste" class="bar green"></div>
     </div>
 
-    <p class="legend">🔴 Dépenses | 🔵 Reste</p>
-
-    <div id="detailDepenses" class="details"></div>
+    <p class="legend">🔴 Dépenses | 🟢 Reste</p>
 
     <div id="analyse"></div>
 
     <button onclick="partager()">📲 Partager mon résultat</button>
 
-    <div class="cta">
-      💸 Gagner + 200€/mois :
-      <br>
-      <a href="#">➡️ Comparer les meilleures banques</a>
-    </div>
+  </div>
+
+  <!-- BOUTON POUR DÉPENSES -->
+  <button class="toggle" onclick="toggleDepenses()">➕ Ajouter mes dépenses</button>
+
+  <!-- DÉPENSES CACHÉES -->
+  <div id="depensesBloc" style="display:none;">
+
+    <h3>📉 Dépenses</h3>
+
+    <div class="input-group"><span>🏠</span><input type="number" id="loyer" value="900"></div>
+    <div class="input-group"><span>🛒</span><input type="number" id="courses" value="400"></div>
+    <div class="input-group"><span>🚗</span><input type="number" id="transport" value="200"></div>
+    <div class="input-group"><span>💡</span><input type="number" id="factures" value="100"></div>
+    <div class="input-group"><span>🎮</span><input type="number" id="loisirs" value="200"></div>
+    <div class="input-group"><span>📦</span><input type="number" id="autres" value="100"></div>
 
   </div>
 
-  <p class="disclaimer">
-    ⚠️ Ceci est une estimation basée sur des moyennes nationales.
-  </p>
+  <p class="disclaimer">⚠️ Estimation basée sur des moyennes</p>
 
 </div>
 

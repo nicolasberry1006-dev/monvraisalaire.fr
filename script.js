@@ -38,10 +38,13 @@ let depenses = loyer + courses + transport + factures + loisirs + autres;
     niveau = "Au-dessus de la moyenne";
   }
 
-  let median = 1800;
+let median = 1800;
 let niveau = "";
+let diff = netImpot - median;
 
-if (netImpot < median * 0.8) {
+if (netImpot <= 0) {
+  niveau = "⚠️ Données invalides";
+} else if (netImpot < median * 0.8) {
   niveau = "🔴 En dessous de la moyenne";
 } else if (netImpot < median * 1.2) {
   niveau = "🟡 Dans la moyenne";

@@ -5,14 +5,20 @@ body {
 }
 
 .container {
-  max-width: 420px;
+  max-width: 380px;
   margin: auto;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 10px;
 }
 
 input, select {
   width: 100%;
-  padding: 12px;
-  margin: 8px 0;
+  padding: 10px;
+  margin: 6px 0;
   border-radius: 10px;
   border: none;
   background: #1e1e1e;
@@ -21,24 +27,29 @@ input, select {
 
 button {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   background: white;
   color: black;
   border: none;
   border-radius: 10px;
+  margin-top: 8px;
   font-weight: bold;
-  margin-top: 10px;
+}
+
+.toggle {
+  background: #222;
+  color: white;
 }
 
 .card {
   background: #1a1a1a;
-  padding: 15px;
+  padding: 12px;
   border-radius: 12px;
-  margin-top: 20px;
+  margin-top: 12px;
 }
 
 .reste {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -46,33 +57,43 @@ button {
   background: #333;
   border-radius: 10px;
   overflow: hidden;
-  margin: 10px 0;
+  margin: 8px 0;
 }
 
 .bar {
-  height: 12px;
+  height: 10px;
 }
 
 .red { background: #ff4d4d; }
-.blue { background: #4da6ff; }
+.green { background: #22c55e; }
 
 .legend {
-  font-size: 12px;
+  font-size: 11px;
   color: #aaa;
 }
 
-.details {
-  font-size: 13px;
-  color: #ccc;
-  margin-top: 10px;
+.input-group {
+  display: flex;
+  align-items: center;
+  background: #1e1e1e;
+  border-radius: 10px;
+  margin: 6px 0;
+  padding: 8px;
 }
 
-.good { color: #00ff88; }
-.mid { color: #ffaa00; }
-.bad { color: #ff4444; }
+.input-group span {
+  margin-right: 8px;
+}
+
+.input-group input {
+  border: none;
+  background: transparent;
+  color: white;
+  width: 100%;
+}
 
 .disclaimer {
   font-size: 11px;
   color: #777;
-  margin-top: 20px;
+  margin-top: 15px;
 }

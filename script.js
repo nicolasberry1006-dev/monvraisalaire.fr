@@ -6,12 +6,14 @@ function calc() {
   let net = brut * (1 - taux);
   let netImpot = net * (1 - impot);
 
-  let loyer = +document.getElementById("loyer").value || 0;
-  let courses = +document.getElementById("courses").value || 0;
-  let transport = +document.getElementById("transport").value || 0;
-  let loisirs = +document.getElementById("loisirs").value || 0;
+let loyer = +document.getElementById("loyer").value || 0;
+let courses = +document.getElementById("courses").value || 0;
+let transport = +document.getElementById("transport").value || 0;
+let factures = +document.getElementById("factures").value || 0;
+let loisirs = +document.getElementById("loisirs").value || 0;
+let autres = +document.getElementById("autres").value || 0;
 
-  let depenses = loyer + courses + transport + loisirs;
+let depenses = loyer + courses + transport + factures + loisirs + autres;
   let reste = netImpot - depenses;
 
   let ratio = (reste / netImpot) * 100;

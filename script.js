@@ -39,6 +39,15 @@ let depenses = loyer + courses + transport + factures + loisirs + autres;
   }
 
   let median = 1800;
+let niveau = "";
+
+if (netImpot < median * 0.8) {
+  niveau = "🔴 En dessous de la moyenne";
+} else if (netImpot < median * 1.2) {
+  niveau = "🟡 Dans la moyenne";
+} else {
+  niveau = "🟢 Au-dessus de la moyenne";
+}
 
   document.getElementById("net").innerText = net.toFixed(0) + "€";
   document.getElementById("netImpot").innerText = netImpot.toFixed(0) + "€";

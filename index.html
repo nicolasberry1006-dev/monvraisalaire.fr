@@ -14,7 +14,6 @@
   <h1>💰 Combien te reste-t-il vraiment ?</h1>
   <p class="subtitle">Après charges, impôts et dépenses</p>
 
-  <!-- INPUTS PRINCIPAUX -->
   <input type="number" id="brut" value="3500" placeholder="Salaire brut">
 
   <select id="statut">
@@ -31,9 +30,7 @@
 
   <button onclick="calc()">Calculer</button>
 
-  <!-- RESULTAT (REMONTÉ) -->
   <div class="card">
-
     <h2>Résultat</h2>
 
     <p>💵 Net estimé : <b id="net">-</b></p>
@@ -51,14 +48,11 @@
     <div id="analyse"></div>
 
     <button onclick="partager()">📲 Partager mon résultat</button>
-
   </div>
 
-  <!-- BOUTON POUR DÉPENSES -->
   <button class="toggle" onclick="toggleDepenses()">➕ Ajouter mes dépenses</button>
 
-  <!-- DÉPENSES CACHÉES -->
-  <div id="depensesBloc" style="display:none;">
+  <div id="depensesBloc" class="hidden">
 
     <h3>📉 Dépenses</h3>
 

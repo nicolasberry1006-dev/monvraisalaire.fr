@@ -23,6 +23,12 @@ input, select {
   border: none;
   background: #1e1e1e;
   color: white;
+  transition: 0.2s;
+}
+
+input:focus, select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #22c55e;
 }
 
 button {
@@ -34,6 +40,17 @@ button {
   border-radius: 10px;
   margin-top: 8px;
   font-weight: bold;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  background: #e5e5e5;
+}
+
+button:active {
+  transform: scale(0.97);
 }
 
 .toggle {
@@ -46,6 +63,11 @@ button {
   padding: 12px;
   border-radius: 12px;
   margin-top: 12px;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
 }
 
 .reste {
@@ -90,6 +112,18 @@ button {
   background: transparent;
   color: white;
   width: 100%;
+}
+
+.hidden {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.visible {
+  max-height: 500px;
+  opacity: 1;
 }
 
 .disclaimer {

@@ -19,22 +19,18 @@ function calc() {
 
   let ratio = netImpot > 0 ? (reste / netImpot) * 100 : 0;
 
-  // 💥 CALCULS BONUS
   let parJour = reste / 30;
   let parAn = reste * 12;
   let sur5ans = parAn * 5;
 
-  // 💣 MESSAGE ÉMOTIONNEL
   let message = "";
   if (ratio < 20) message = "💀 Situation fragile";
   else if (ratio < 40) message = "⚠️ Attention, marge faible";
   else message = "🔥 Bonne situation financière";
 
-  // 📊 MÉDIANE
   let median = 1800;
   let niveau = netImpot > median ? "🟢 Au-dessus de la moyenne" : "🟡 Dans la moyenne";
 
-  // AFFICHAGE
   document.getElementById("net").innerText = net.toFixed(0) + "€";
   document.getElementById("netImpot").innerText = netImpot.toFixed(0) + "€";
 
@@ -57,13 +53,12 @@ function calc() {
   }
 }
 
-// toggle dépenses
 function toggleDepenses() {
   let bloc = document.getElementById("depensesBloc");
-  bloc.style.display = bloc.style.display === "none" ? "block" : "none";
+  bloc.classList.toggle("visible");
+  bloc.classList.toggle("hidden");
 }
 
-// partage
 function partager() {
   let texte = document.getElementById("reste").innerText;
   navigator.clipboard.writeText("💰 " + texte);

@@ -1,15 +1,3 @@
-function updateInfo() {
-  let statut = document.getElementById("statut").selectedIndex;
-  let text = "";
-
-  if (statut === 0) text = "Charges moyennes ~22%";
-  if (statut === 1) text = "Charges moyennes ~25%";
-  if (statut === 2) text = "Micro-entrepreneur : charges ~22% du CA";
-  if (statut === 3) text = "Société : estimation globale";
-
-  document.getElementById("info").innerText = text;
-}
-
 function calc() {
   let brut = +document.getElementById("brut").value || 0;
   let taux = +document.getElementById("statut").value;
@@ -55,5 +43,3 @@ function calc() {
   document.getElementById("barReste").style.width =
     (reste / netImpot) * 100 + "%";
 }
-
-updateInfo();

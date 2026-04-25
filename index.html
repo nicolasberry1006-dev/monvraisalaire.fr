@@ -1,6 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculateur salaire réel</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
 <div class="container">
 
-  <h1>Calculateur salaire brut en net</h1>
+  <h1>💰 Calculateur salaire brut en net</h1>
 
   <input type="number" id="brut" value="4000" placeholder="Salaire brut mensuel">
 
@@ -11,11 +24,9 @@
     <option value="0.45">Société (SASU / EURL)</option>
   </select>
 
-  <p class="info" id="info"></p>
-
   <input type="number" id="impot" value="10" placeholder="Taux impôt (%)">
 
-  <h3>Dépenses mensuelles</h3>
+  <h3>📉 Dépenses mensuelles</h3>
 
   <input type="number" id="loyer" value="900" placeholder="Loyer">
   <input type="number" id="courses" value="400" placeholder="Courses">
@@ -48,7 +59,13 @@
   </div>
 
   <p class="disclaimer">
-    ⚠️ Ceci est une estimation basée sur des moyennes nationales. Les résultats peuvent varier selon votre situation réelle.
+    ⚠️ Ceci est une estimation basée sur des moyennes nationales.
   </p>
 
 </div>
+
+<!-- JS -->
+<script src="script.js"></script>
+
+</body>
+</html>

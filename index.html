@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculateur salaire réel</title>
-
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -15,40 +13,35 @@
 
   <h1>💰 Calculateur salaire brut en net</h1>
 
-  <input type="number" id="brut" value="4000" placeholder="Salaire brut mensuel">
+  <input type="number" id="brut" value="3500" placeholder="Salaire brut">
 
   <select id="statut">
     <option value="0.22">Salarié</option>
     <option value="0.25">Cadre</option>
     <option value="0.22">Micro-entrepreneur</option>
-    <option value="0.45">Société (SASU / EURL)</option>
+    <option value="0.45">Société</option>
   </select>
 
-  <input type="number" id="impot" value="10" placeholder="Taux impôt (%)">
+  <input type="number" id="impot" value="10" placeholder="Impôt (%)">
 
-<h3>📉 Dépenses mensuelles détaillées</h3>
-  
-<p id="detailDepenses" style="font-size:13px;color:#aaa;margin-top:10px"></p>
-  
-<input type="number" id="loyer" value="900" placeholder="🏠 Loyer / crédit">
-<input type="number" id="courses" value="400" placeholder="🛒 Courses">
-<input type="number" id="transport" value="200" placeholder="🚗 Transport / essence">
-<input type="number" id="factures" value="100" placeholder="💡 Électricité / internet">
-<input type="number" id="loisirs" value="200" placeholder="🎮 Loisirs / sorties">
-<input type="number" id="autres" value="100" placeholder="📦 Autres dépenses">
+  <h3>📉 Dépenses mensuelles détaillées</h3>
 
-<button onclick="calc()">Calculer</button>
+  <input type="number" id="loyer" value="900" placeholder="🏠 Loyer / crédit">
+  <input type="number" id="courses" value="400" placeholder="🛒 Courses">
+  <input type="number" id="transport" value="200" placeholder="🚗 Transport">
+  <input type="number" id="factures" value="100" placeholder="💡 Factures">
+  <input type="number" id="loisirs" value="200" placeholder="🎮 Loisirs">
+  <input type="number" id="autres" value="100" placeholder="📦 Autres">
 
-  <div class="result-card">
+  <button onclick="calc()">Calculer</button>
+
+  <div class="card">
+
     <h2>Résultat</h2>
 
     <p>💵 Net estimé : <b id="net">-</b></p>
     <p>💸 Après impôt : <b id="netImpot">-</b></p>
     <p>💰 Dépenses : <b id="depenses">-</b></p>
-
-    <button onclick="partager()" style="margin-top:10px">
-📲 Partager mon résultat
-</button>
 
     <p id="reste" class="reste">-</p>
 
@@ -57,13 +50,20 @@
       <div id="barReste" class="bar blue"></div>
     </div>
 
-    <p id="analyse"></p>
+    <p class="legend">🔴 Dépenses | 🔵 Reste</p>
+
+    <div id="detailDepenses" class="details"></div>
+
+    <div id="analyse"></div>
+
+    <button onclick="partager()">📲 Partager mon résultat</button>
 
     <div class="cta">
-      💡 Optimiser ton budget :
+      💸 Gagner + 200€/mois :
       <br>
       <a href="#">➡️ Comparer les meilleures banques</a>
     </div>
+
   </div>
 
   <p class="disclaimer">
@@ -72,7 +72,6 @@
 
 </div>
 
-<!-- JS -->
 <script src="script.js"></script>
 
 </body>

@@ -30,7 +30,39 @@ function calc() {
 
   let median = 1800;
   let niveau = netImpot > median ? "🟢 Au-dessus de la moyenne" : "🟡 Dans la moyenne";
+let revenu = netImpot; // ton revenu après impôt
+let taux = 0;
 
+if (revenu > 0) {
+  taux = Math.round((reste / revenu) * 100);
+}
+
+// affichage reste
+document.getElementById("resteAffiche").textContent = reste + "€";
+
+// affichage %
+document.getElementById("tauxEpargne").textContent = taux + "%";
+
+// logique intelligente
+let reco = "";
+
+if (taux < 5) {
+  reco = "❌ Situation fragile — épargne difficile";
+} else if (taux < 15) {
+  reco = "⚠️ Épargne faible — vise 10 à 15%";
+} else if (taux < 30) {
+  reco = "👍 Bonne gestion — continue comme ça";
+} else {
+  reco = "💸 Excellent — forte capacité d’épargne";
+}
+
+// suggestion montant réaliste
+let epargneMin = Math.round(revenu * 0.1);
+let epargneMax = Math.round(revenu * 0.2);
+
+reco += `<br>📈 Recommandé : ${epargneMin}€ à ${epargneMax}€ / mois`;
+
+document.getElementById("recoEpargne").innerHTML = reco;
   document.getElementById("net").innerText = net.toFixed(0) + "€";
   document.getElementById("netImpot").innerText = netImpot.toFixed(0) + "€";
 

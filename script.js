@@ -70,4 +70,3 @@ function partager() {
     alert("Partage non supporté sur ce navigateur");
   }
 }
-}

@@ -126,7 +126,17 @@ button:active {
   background: #2a2a2a;
   color: white;
 }
+.epargne-box {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 12px;
+  background: #111;
+  font-size: 16px;
+}
 
+.epargne-box p {
+  margin: 6px 0;
+}
 .euro {
   margin-left: 10px;
   color: #aaa;

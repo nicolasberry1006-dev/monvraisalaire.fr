@@ -94,6 +94,14 @@ button:active {
   color: #aaa;
 }
 
+.input-group input {
+  background: #2a2a2a;
+  border: 1px solid #333;
+}
+.input-group:hover {
+  background: #262626;
+  transition: 0.2s;
+}
 .input-group {
   display: flex;
   align-items: center;
@@ -120,7 +128,7 @@ button:active {
 }
 
 .euro {
-  margin-left: 5px;
+  margin-left: 10px;
   color: #aaa;
 }
 .hidden {

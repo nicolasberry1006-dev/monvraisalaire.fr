@@ -30,20 +30,23 @@ function calc() {
 
   let median = 1800;
   let niveau = netImpot > median ? "🟢 Au-dessus de la moyenne" : "🟡 Dans la moyenne";
-let revenu = netImpot; // ton revenu après impôt
+// ========================
+// CALCUL ÉPARGNE INTELLIGENTE
+// ========================
+
+let revenu = netImpot;
 let taux = 0;
 
-if (revenu > 0) {
+// sécurité
+if (!isNaN(revenu) && revenu > 0 && !isNaN(reste)) {
   taux = Math.round((reste / revenu) * 100);
 }
 
-// affichage reste
+// affichage
 document.getElementById("resteAffiche").textContent = reste + "€";
-
-// affichage %
 document.getElementById("tauxEpargne").textContent = taux + "%";
 
-// logique intelligente
+// logique
 let reco = "";
 
 if (taux < 5) {
@@ -56,13 +59,14 @@ if (taux < 5) {
   reco = "💸 Excellent — forte capacité d’épargne";
 }
 
-// suggestion montant réaliste
+// recommandation réaliste
 let epargneMin = Math.round(revenu * 0.1);
 let epargneMax = Math.round(revenu * 0.2);
 
 reco += `<br>📈 Recommandé : ${epargneMin}€ à ${epargneMax}€ / mois`;
 
 document.getElementById("recoEpargne").innerHTML = reco;
+  
   document.getElementById("net").innerText = net.toFixed(0) + "€";
   document.getElementById("netImpot").innerText = netImpot.toFixed(0) + "€";
 

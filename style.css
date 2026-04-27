@@ -97,23 +97,32 @@ button:active {
 .input-group {
   display: flex;
   align-items: center;
-  background: #1e1e1e;
+  justify-content: space-between;
+  background: #1f1f1f;
+  padding: 12px 15px;
   border-radius: 10px;
-  margin: 6px 0;
-  padding: 8px;
+  margin-bottom: 10px;
 }
 
 .input-group span {
-  margin-right: 8px;
+  font-size: 14px;
+  min-width: 120px;
 }
 
 .input-group input {
+  width: 80px;
+  padding: 6px;
   border: none;
-  background: transparent;
+  border-radius: 6px;
+  text-align: right;
+  background: #2a2a2a;
   color: white;
-  width: 100%;
 }
 
+.euro {
+  margin-left: 5px;
+  color: #aaa;
+}
 .hidden {
   max-height: 0;
   overflow: hidden;

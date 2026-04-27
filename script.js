@@ -60,7 +60,14 @@ function toggleDepenses() {
 }
 
 function partager() {
-  let texte = document.getElementById("reste").innerText;
-  navigator.clipboard.writeText("💰 " + texte);
-  alert("Résultat copié !");
+  if (navigator.share) {
+    navigator.share({
+      title: "Mon reste à vivre",
+      text: "Il me reste 557€ par mois 😬 Teste toi aussi",
+      url: "https://combienreste.fr"
+    });
+  } else {
+    alert("Partage non supporté sur ce navigateur");
+  }
+}
 }

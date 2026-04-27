@@ -133,6 +133,9 @@ window.addEventListener("DOMContentLoaded", () => {
     let el = document.getElementById(id);
     if (el) el.value = "";
   });
+
+}); 
+
 function toggleDepenses() {
   const bloc = document.getElementById("depensesBloc");
   if (!bloc) return;
@@ -140,4 +143,3 @@ function toggleDepenses() {
   bloc.classList.toggle("visible");
   bloc.classList.toggle("hidden");
 }
-});

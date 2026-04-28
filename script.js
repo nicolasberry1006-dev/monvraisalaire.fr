@@ -192,7 +192,41 @@ if (projection && reste > 0) {
     barRes.style.width = restePercent + "%";
   }
 }
+function updateCustomEpargne() {
 
+  const slider = document.getElementById("customEpargne");
+  const result = document.getElementById("customResult");
+
+  if (!slider || !result) return;
+
+  const reste = parseFloat(
+    document.getElementById("resteAffiche")?.textContent.replace("€", "")
+  ) || 0;
+
+  const taux = parseInt(slider.value);
+
+  const montant = Math.round(reste * (taux / 100));
+
+  let html = `
+    💸 ${taux}% = <strong>${montant}€ / mois</strong><br>
+    📅 En 1 an : ${montant * 12}€
+  `;
+
+  // ⚠️ logique DANS la fonction
+  if (montant > reste * 0.4) {
+    html += "<br>⚠️ Objectif très ambitieux";
+  }
+
+  result.innerHTML = html;
+}
+
+
+// auto update
+document.addEventListener("input", (e) => {
+  if (e.target.id === "customEpargne") {
+    updateCustomEpargne();
+  }
+});
 // ========================
 // 🔥 PARTAGE
 // ========================

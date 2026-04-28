@@ -124,7 +124,43 @@ button:active {
   cursor: pointer;
   transition: 0.3s;
 }
+/* Jauge principale (reste) */
+.bar-container {
+  height: 10px;
+  background: #222;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 10px 0;
+  position: relative;
+}
 
+#barDepenses {
+  height: 100%;
+  background: #e74c3c;
+  position: absolute;
+  left: 0;
+}
+
+#barReste {
+  height: 100%;
+  background: #2ecc71;
+  position: absolute;
+  left: 0;
+}
+
+/* Jauge épargne (plus fine et discrète) */
+.epargne-jauge {
+  height: 6px;
+  background: #222;
+  border-radius: 10px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+#jaugeFill {
+  height: 100%;
+  background: #00ffae;
+}
 .btn-epargne:hover {
   background: #2a2a2a;
 }

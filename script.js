@@ -20,13 +20,16 @@ function calc() {
 
   let depenses = loyer + courses + transport + factures + loisirs + autres;
 
-  // ⚠️ WARNING SI 0 DEPENSE
-  let warning = "";
+  // ========================
+  // 🛑 PAS BLOQUER SI VIDE
+  // ========================
   if (depenses === 0) {
-    warning = "⚠️ Résultat basé sur 0€ de dépenses (irréaliste)";
+    depenses = 0; // laisse passer
   }
 
   let reste = netImpot - depenses;
+
+  // sécurité
   reste = Math.max(0, reste);
 
   let ratio = netImpot > 0 ? (reste / netImpot) * 100 : 0;
@@ -45,29 +48,57 @@ function calc() {
   let niveau = netImpot > median ? "🟢 Au-dessus de la moyenne" : "🟡 Dans la moyenne";
 
   // ========================
-  // 💰 ÉPARGNE (LOGIQUE)
+  // 💰 ÉPARGNE LOGIQUE
   // ========================
 
-  let epargneMin = Math.round(netImpot * 0.05);
-  let epargneMax = Math.round(netImpot * 0.15);
+  let epargneMin = Math.max(0, Math.round(netImpot * 0.05));
+  let epargneMax = Math.max(0, Math.round(netImpot * 0.15));
 
   let tauxEpargne = netImpot > 0
-    ? Math.round((epargneMin / netImpot) * 100)
+    ? Math.max(0, Math.round((epargneMin / netImpot) * 100))
     : 0;
 
   // ========================
-  // 📊 AFFICHAGE RESTE
+  // 📊 AFFICHAGE
   // ========================
 
-  document.getElementById("resteAffiche").textContent = reste.toFixed(0) + "€";
+  let resteEl = document.getElementById("resteAffiche");
+  if (resteEl) resteEl.textContent = reste.toFixed(0) + "€";
 
-  let resteBox = document.getElementById("reste");
-  if (resteBox) {
-    resteBox.innerHTML = "💰 Reste : " + reste.toFixed(0) + "€";
+  let tauxEl = document.getElementById("tauxEpargne");
+  if (tauxEl) tauxEl.textContent = "💸 " + tauxEpargne + "%";
+
+  let recoBox = document.getElementById("recoEpargne");
+  if (recoBox) {
+    recoBox.innerHTML = `
+      👉 Tu peux épargner <strong>${epargneMin}€ à ${epargneMax}€ / mois</strong><br>
+      👉 Sans te priver
+    `;
   }
 
   // ========================
-  // 📊 ANALYSE
+  // 📊 JAUGE ÉPARGNE
+  // ========================
+
+  let jauge = document.getElementById("jaugeFill");
+  let label = document.getElementById("jaugeLabel");
+
+  if (jauge && label) {
+
+    let couleur = "";
+
+    if (tauxEpargne < 5) couleur = "#ff4d4d";
+    else if (tauxEpargne < 10) couleur = "#ffa500";
+    else couleur = "#00ffae";
+
+    jauge.style.width = tauxEpargne + "%";
+    jauge.style.background = couleur;
+
+    label.textContent = `Épargne recommandée : ${tauxEpargne}%`;
+  }
+
+  // ========================
+  // 📊 ANALYSE COMPLÈTE
   // ========================
 
   let analyseBox = document.getElementById("analyse");
@@ -84,7 +115,6 @@ function calc() {
     }
 
     analyseBox.innerHTML = `
-      ${warning ? `<p style="color:orange">${warning}</p>` : ""}
       <p><b>${message}</b></p>
       <p>${extra}</p>
       <p>💥 ${reste.toFixed(0)}€ = ${parJour.toFixed(0)}€/jour</p>
@@ -97,52 +127,23 @@ function calc() {
   }
 
   // ========================
-  // 📊 BARRES
+  // 🔴🟢 DOUBLE JAUGE (FIX)
   // ========================
 
-let depPercent = netImpot > 0 ? (depenses / netImpot) * 100 : 0;
-let restePercent = netImpot > 0 ? (reste / netImpot) * 100 : 0;
+  let barDep = document.getElementById("barDepenses");
+  let barRes = document.getElementById("barReste");
 
-// sécurité
-depPercent = Math.max(0, Math.min(100, depPercent));
-restePercent = Math.max(0, Math.min(100, restePercent));
+  if (barDep && barRes && netImpot > 0) {
 
-// applique
-barDep.style.width = depPercent + "%";
-barRes.style.width = restePercent + "%";
+    let depPercent = (depenses / netImpot) * 100;
+    let restePercent = (reste / netImpot) * 100;
 
+    depPercent = Math.max(0, Math.min(100, depPercent));
+    restePercent = Math.max(0, Math.min(100, restePercent));
 
-  // ========================
-  // 💡 ÉPARGNE (CACHÉ)
-  // ========================
-
-  let tauxEl = document.getElementById("tauxEpargne");
-  if (tauxEl) tauxEl.textContent = "💸 " + tauxEpargne + "%";
-
-  let recoBox = document.getElementById("recoEpargne");
-  if (recoBox) {
-    recoBox.innerHTML = `
-      👉 ${epargneMin}€ à ${epargneMax}€ / mois<br>
-      👉 Sans te priver
-    `;
+    barDep.style.width = depPercent + "%";
+    barRes.style.width = restePercent + "%";
   }
-
-  let jauge = document.getElementById("jaugeFill");
-
-  if (jauge) {
-    jauge.style.width = tauxEpargne + "%";
-  }
-}
-
-// ========================
-// 🔥 TOGGLE ÉPARGNE
-// ========================
-
-function toggleEpargne() {
-  const bloc = document.getElementById("blocEpargne");
-  if (!bloc) return;
-
-  bloc.classList.toggle("hidden");
 }
 
 // ========================
@@ -184,13 +185,19 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 // ========================
-// 🔥 TOGGLE DEPENSES
+// 🔥 TOGGLES
 // ========================
 
 function toggleDepenses() {
   const bloc = document.getElementById("depensesBloc");
   if (!bloc) return;
 
-  bloc.classList.toggle("visible");
+  bloc.classList.toggle("hidden");
+}
+
+function toggleEpargne() {
+  const bloc = document.getElementById("blocEpargne");
+  if (!bloc) return;
+
   bloc.classList.toggle("hidden");
 }

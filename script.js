@@ -176,6 +176,7 @@ if (projection && reste > 0) {
 
   // ✅ COMPARAISON (BON ENDROIT)
   renderComparaisonPremium(netImpot, ratio);
+  updateCustomEpargne();
 
   // ========================
   // 🔴🟢 DOUBLE JAUGE

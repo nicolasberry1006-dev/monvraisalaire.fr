@@ -41,12 +41,11 @@ function calc() {
 // 💰 ÉPARGNE RÉALISTE
 // ========================
 
-// on ne dit plus que le reste = épargne
-
+// épargne réaliste basée sur le reste
 let epargneMin = Math.round(reste * 0.1);
 let epargneMax = Math.round(reste * 0.3);
 
-// % basé sur revenu (plus logique)
+// on affiche un % basé sur l'épargne réelle (pas tout le reste)
 let tauxEpargne = netImpot > 0 
   ? Math.round((epargneMin / netImpot) * 100)
   : 0;

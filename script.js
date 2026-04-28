@@ -36,35 +36,35 @@ function calc() {
   let median = 1800;
   let niveau = netImpot > median ? "🟢 Au-dessus de la moyenne" : "🟡 Dans la moyenne";
 
-  // ========================
-  // 💰 ÉPARGNE INTELLIGENTE
-  // ========================
 
-  let elReste = document.getElementById("resteAffiche");
-  if (elReste) elReste.textContent = reste.toFixed(0) + "€";
+// ========================
+// 💰 ÉPARGNE RÉALISTE
+// ========================
 
-  let elTaux = document.getElementById("tauxEpargne");
-  if (elTaux) elTaux.textContent = tauxEpargne + "%";
+// on ne dit plus que le reste = épargne
 
-  let reco = "";
+let epargneMin = Math.round(reste * 0.1);
+let epargneMax = Math.round(reste * 0.3);
 
-  if (tauxEpargne < 5) {
-    reco = "❌ Situation fragile — épargne difficile";
-  } else if (tauxEpargne < 15) {
-    reco = "⚠️ Épargne faible — vise 10 à 15%";
-  } else if (tauxEpargne < 30) {
-    reco = "👍 Bonne gestion — continue comme ça";
-  } else {
-    reco = "💸 Excellent — forte capacité d’épargne";
-  }
+// % basé sur revenu (plus logique)
+let tauxEpargne = netImpot > 0 
+  ? Math.round((epargneMin / netImpot) * 100)
+  : 0;
 
-  let epargneMin = Math.round(netImpot * 0.1);
-  let epargneMax = Math.round(netImpot * 0.2);
+// affichage
+let resteEl = document.getElementById("resteAffiche");
+if (resteEl) resteEl.textContent = reste.toFixed(0) + "€";
 
-  reco += `<br>📈 Recommandé : ${epargneMin}€ à ${epargneMax}€ / mois`;
+let tauxEl = document.getElementById("tauxEpargne");
+if (tauxEl) tauxEl.textContent = tauxEpargne + "%";
 
-  let recoBox = document.getElementById("recoEpargne");
-  if (recoBox) recoBox.innerHTML = reco;
+// logique
+let reco = `
+👉 Tu peux épargner environ <strong>${epargneMin}€ à ${epargneMax}€ / mois</strong><br>
+👉 Sans te priver
+`;
+
+document.getElementById("recoEpargne").innerHTML = reco;
 
   // ========================
   // 📊 JAUGE

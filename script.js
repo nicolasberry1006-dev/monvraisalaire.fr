@@ -110,9 +110,7 @@ restePercent = Math.max(0, Math.min(100, restePercent));
 // applique
 barDep.style.width = depPercent + "%";
 barRes.style.width = restePercent + "%";
-  .bar-container {
-  box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
-}
+
 
   // ========================
   // 💡 ÉPARGNE (CACHÉ)

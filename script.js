@@ -136,14 +136,14 @@ document.getElementById("recoEpargne").innerHTML = reco;
   // 📈 PROJECTION
   // ========================
 
-  let projection = document.getElementById("projectionEpargne");
-  if (projection) {
-    projection.innerHTML = `
-      📅 En 1 an : ${epargneMin * 12}€ à ${epargneMax * 12}€<br>
-      🚀 En 10 ans : ${(epargneMin * 12 * 10)}€ à ${(epargneMax * 12 * 10)}€
-    `;
-  }
+let projection = document.getElementById("projectionEpargne");
 
+if (projection && reste > 0) {
+  projection.innerHTML = `
+    📅 En 1 an : ${epargneMin * 12}€ à ${epargneMax * 12}€<br>
+    🚀 En 10 ans : ${(epargneMin * 12) * 10}€ à ${(epargneMax * 12) * 10}€
+  `;
+}
   // ========================
   // 📊 AFFICHAGE
   // ========================

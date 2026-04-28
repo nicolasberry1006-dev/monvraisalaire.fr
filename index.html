@@ -60,16 +60,16 @@
     </button>
 
     <!-- 💸 BLOC ÉPARGNE -->
-   <div id="blocEpargne" class="hidden">
+  <div id="blocEpargne" class="hidden">
 
-  <!-- jauge -->
-  <div class="epargne-jauge">
-    <div id="jaugeFill"></div>
+  <!-- 🔥 ÉPARGNE AUTO (PRIORITÉ) -->
+  <div class="epargne-box">
+    <p id="tauxEpargne"></p>
+    <p id="recoEpargne"></p>
+    <p id="projectionEpargne"></p>
   </div>
 
-  <p id="jaugeLabel"></p>
-
-  <!-- 💡 SIMULATEUR -->
+  <!-- 🎯 SIMULATEUR -->
   <div class="epargne-box">
     <p>🎯 Teste ton objectif d’épargne :</p>
 
@@ -78,15 +78,9 @@
     <p id="customResult"></p>
   </div>
 
-  <!-- ton contenu actuel -->
-  <div class="epargne-box">
-    <p id="tauxEpargne"></p>
-    <p id="recoEpargne"></p>
-  </div>
+  <button onclick="partager()">📲 Partager mon résultat</button>
 
-      <button onclick="partager()">📲 Partager mon résultat</button>
-
-    </div>
+</div>
 
     <!-- DÉPENSES -->
     <button class="toggle" onclick="toggleDepenses()">➕ Ajouter mes dépenses</button>

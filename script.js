@@ -139,9 +139,16 @@ document.getElementById("recoEpargne").innerHTML = reco;
 let projection = document.getElementById("projectionEpargne");
 
 if (projection && reste > 0) {
+
+  let an1Min = epargneMin * 12;
+  let an1Max = epargneMax * 12;
+
+  let an5Min = an1Min * 5;
+  let an5Max = an1Max * 5;
+
   projection.innerHTML = `
-    📅 En 1 an : ${epargneMin * 12}€ à ${epargneMax * 12}€<br>
-    🚀 En 10 ans : ${(epargneMin * 12) * 10}€ à ${(epargneMax * 12) * 10}€
+    📅 En 1 an : ${an1Min}€ à ${an1Max}€<br>
+    🚀 En 5 ans : ${an5Min}€ à ${an5Max}€
   `;
 }
   // ========================

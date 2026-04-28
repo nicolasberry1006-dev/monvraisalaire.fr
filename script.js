@@ -89,51 +89,57 @@ if (projection) {
 }
   
 // ========================
-// 🏆 COMPARAISON INSEE STYLE
+// 🏆 COMPARAISON PREMIUM
 // ========================
 
-let percentileText = "";
-let niveau = "";
+// --- AXE A : revenu (approx INSEE, mensuel) ---
+function getIncomePercentile(netImpot) {
+  if (netImpot < 1200) return { pct: "bas 20%", label: "🔴 Revenu faible" };
+  if (netImpot < 1600) return { pct: "30% les plus bas", label: "🟠 Sous la moyenne" };
+  if (netImpot < 2000) return { pct: "médiane (50%)", label: "🟡 Dans la moyenne" };
+  if (netImpot < 2800) return { pct: "top 30%", label: "🟢 Au-dessus de la moyenne" };
+  if (netImpot < 3500) return { pct: "top 20%", label: "🟢 Bon revenu" };
+  if (netImpot < 4500) return { pct: "top 10%", label: "🔵 Revenu élevé" };
+  if (netImpot < 7000) return { pct: "top 5%", label: "🔵 Très élevé" };
+  return { pct: "top 1%", label: "💎 Très haut revenu" };
+}
 
-if (ratio < 5) {
-  percentileText = "bas 10%";
-  niveau = "🔴 Situation très fragile";
+// --- AXE B : gestion ---
+function getManagementLevel(ratio) {
+  if (ratio < 10) return "🔴 Gestion difficile";
+  if (ratio < 20) return "🟠 Gestion tendue";
+  if (ratio < 30) return "🟡 Gestion correcte";
+  if (ratio < 40) return "🟢 Bonne gestion";
+  return "🔵 Excellente gestion";
 }
-else if (ratio < 10) {
-  percentileText = "bas 20%";
-  niveau = "🔴 Très contraint financièrement";
-}
-else if (ratio < 20) {
-  percentileText = "30% les plus bas";
-  niveau = "🟠 Sous pression";
-}
-else if (ratio < 30) {
-  percentileText = "dans la moyenne (50%)";
-  niveau = "🟡 Équilibre standard";
-}
-else if (ratio < 40) {
-  percentileText = "top 30%";
-  niveau = "🟢 Bon niveau de vie";
-}
-else if (ratio < 50) {
-  percentileText = "top 20%";
-  niveau = "🟢 Confortable";
-}
-else if (ratio < 60) {
-  percentileText = "top 10%";
-  niveau = "🔵 Très confortable";
-}
-else if (ratio < 70) {
-  percentileText = "top 5%";
-  niveau = "🔵 Niveau de vie élevé";
-}
-else if (ratio < 80) {
-  percentileText = "top 2%";
-  niveau = "💎 Très haut niveau";
-}
-else {
-  percentileText = "top 1%";
-  niveau = "💎 Elite financière";
+
+// --- FUSION ---
+function renderComparaisonPremium(netImpot, ratio) {
+
+  const income = getIncomePercentile(netImpot);
+  const gestion = getManagementLevel(ratio);
+
+  let message = `
+    📊 <strong>Comparaison en France</strong><br>
+    ${income.label} (${income.pct})<br>
+    ${gestion}
+  `;
+
+  // insight bonus (très important UX)
+  if (ratio > 30 && netImpot < 2000) {
+    message += `<br>💡 Tu optimises très bien un revenu moyen`;
+  }
+
+  if (ratio < 15 && netImpot > 3000) {
+    message += `<br>⚠️ Revenus élevés mais peu d’épargne possible`;
+  }
+
+  if (ratio > 40 && netImpot > 3000) {
+    message += `<br>🔥 Situation très solide`;
+  }
+
+  const el = document.getElementById("comparaison");
+  if (el) el.innerHTML = message;
 }
 
 document.getElementById("comparaison").innerHTML = `
@@ -207,7 +213,8 @@ document.getElementById("comparaison").innerHTML = `
       <p>${niveau}</p>
     `;
   }
-
+  // ✅ ICI (ENDROIT PARFAIT)
+  renderComparaisonPremium(netImpot, ratio);
   // ========================
   // 🔴🟢 DOUBLE JAUGE (FIX)
   // ========================
@@ -265,7 +272,7 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
 });
-
+a
 // ========================
 // 🔥 TOGGLES
 // ========================

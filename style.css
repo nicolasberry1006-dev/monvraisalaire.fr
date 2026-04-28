@@ -81,7 +81,89 @@ button:active {
   overflow: hidden;
   margin: 8px 0;
 }
+.result-card {
+  background: #111;
+  padding: 20px;
+  border-radius: 15px;
+}
 
+.reste-main h1 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #2ecc71;
+}
+
+.bar-container {
+  height: 10px;
+  background: #222;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 10px 0;
+  position: relative;
+}
+
+#barDepenses {
+  height: 100%;
+  background: #e74c3c;
+  position: absolute;
+}
+
+#barReste {
+  height: 100%;
+  background: #2ecc71;
+  position: absolute;
+}
+
+.btn-epargne {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border-radius: 10px;
+  background: #1f1f1f;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-epargne:hover {
+  background: #2a2a2a;
+}
+
+.hidden {
+  display: none;
+}
+
+/* 💸 Épargne */
+.epargne {
+  margin-top: 15px;
+  animation: fadeIn 0.4s ease;
+}
+
+.jauge {
+  height: 8px;
+  background: #222;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#jaugeFill {
+  height: 100%;
+  width: 0%;
+  background: #2ecc71;
+  transition: 0.6s ease;
+}
+
+.epargne-box {
+  background: #181818;
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 .bar {
   height: 10px;
 }

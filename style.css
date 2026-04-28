@@ -1,3 +1,7 @@
+/* ========================
+   🌑 BASE
+======================== */
+
 body {
   background: #0f0f0f;
   color: white;
@@ -15,6 +19,10 @@ body {
   margin-bottom: 10px;
 }
 
+/* ========================
+   🧾 INPUTS
+======================== */
+
 input, select {
   width: 100%;
   padding: 10px;
@@ -30,6 +38,10 @@ input:focus, select:focus {
   outline: none;
   box-shadow: 0 0 0 2px #22c55e;
 }
+
+/* ========================
+   🔘 BOUTONS
+======================== */
 
 button {
   width: 100%;
@@ -58,34 +70,35 @@ button:active {
   color: white;
 }
 
+.btn-epargne {
+  background: #1f1f1f;
+  color: white;
+}
+
+.btn-epargne:hover {
+  background: #2a2a2a;
+}
+
+/* ========================
+   📦 CARD
+======================== */
+
 .card {
   background: #1a1a1a;
   padding: 12px;
   border-radius: 12px;
   margin-top: 12px;
-  transition: 0.2s;
 }
 
-.card:hover {
-  transform: translateY(-2px);
-}
-
-.reste {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.bar-container {
-  background: #333;
-  border-radius: 10px;
-  overflow: hidden;
-  margin: 8px 0;
-}
 .result-card {
   background: #111;
   padding: 20px;
   border-radius: 15px;
 }
+
+/* ========================
+   💰 RESTE
+======================== */
 
 .reste-main h1 {
   font-size: 32px;
@@ -93,38 +106,10 @@ button:active {
   color: #2ecc71;
 }
 
-.bar-container {
-  height: 10px;
-  background: #222;
-  border-radius: 10px;
-  overflow: hidden;
-  margin: 10px 0;
-  position: relative;
-}
+/* ========================
+   📊 JAUGE PRINCIPALE
+======================== */
 
-#barDepenses {
-  height: 100%;
-  background: #e74c3c;
-  position: absolute;
-}
-
-#barReste {
-  height: 100%;
-  background: #2ecc71;
-  position: absolute;
-}
-
-.btn-epargne {
-  width: 100%;
-  padding: 12px;
-  margin-top: 15px;
-  border-radius: 10px;
-  background: #1f1f1f;
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
-}
-/* Jauge principale (reste) */
 .bar-container {
   height: 10px;
   background: #222;
@@ -148,35 +133,22 @@ button:active {
   left: 0;
 }
 
-/* Jauge épargne (plus fine et discrète) */
-.epargne-jauge {
-  height: 6px;
-  background: #222;
-  border-radius: 10px;
-  margin-top: 10px;
-  overflow: hidden;
+.legend {
+  font-size: 11px;
+  color: #aaa;
 }
 
-#jaugeFill {
-  height: 100%;
-  background: #00ffae;
-}
-.btn-epargne:hover {
-  background: #2a2a2a;
-}
+/* ========================
+   💸 ÉPARGNE
+======================== */
 
-.hidden {
-  display: none;
-}
-
-/* 💸 Épargne */
 .epargne {
   margin-top: 15px;
   animation: fadeIn 0.4s ease;
 }
 
-.jauge {
-  height: 8px;
+.epargne-jauge {
+  height: 6px;
   background: #222;
   border-radius: 10px;
   overflow: hidden;
@@ -185,7 +157,7 @@ button:active {
 #jaugeFill {
   height: 100%;
   width: 0%;
-  background: #2ecc71;
+  background: #00ffae;
   transition: 0.6s ease;
 }
 
@@ -196,54 +168,10 @@ button:active {
   margin-top: 10px;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.bar {
-  height: 10px;
-}
+/* ========================
+   📥 INPUT GROUP
+======================== */
 
-.red { background: #ff4d4d; }
-.green { background: #22c55e; }
-
-.legend {
-  font-size: 11px;
-  color: #aaa;
-}
-.jauge-container {
-  margin-top: 15px;
-  text-align: center;
-}
-
-.jauge-bar {
-  width: 100%;
-  height: 12px;
-  background: #222;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.jauge-fill {
-  height: 100%;
-  width: 0%;
-  border-radius: 10px;
-  transition: width 0.6s ease, background 0.6s ease;
-}
-
-#jaugeLabel {
-  margin-top: 8px;
-  font-size: 14px;
-  color: #aaa;
-}
-.input-group input {
-  background: #2a2a2a;
-  border: 1px solid #333;
-}
-.input-group:hover {
-  background: #262626;
-  transition: 0.2s;
-}
 .input-group {
   display: flex;
   align-items: center;
@@ -268,32 +196,32 @@ button:active {
   background: #2a2a2a;
   color: white;
 }
-.epargne-box {
-  margin-top: 15px;
-  padding: 15px;
-  border-radius: 12px;
-  background: #111;
-  font-size: 16px;
-}
 
-.epargne-box p {
-  margin: 6px 0;
-}
 .euro {
   margin-left: 10px;
   color: #aaa;
 }
+
+/* ========================
+   👁️ VISIBILITÉ
+======================== */
+
 .hidden {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: all 0.4s ease;
+  display: none;
 }
 
-.visible {
-  max-height: 500px;
-  opacity: 1;
+/* ========================
+   ✨ ANIMATION
+======================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
+
+/* ========================
+   ⚠️ DISCLAIMER
+======================== */
 
 .disclaimer {
   font-size: 11px;

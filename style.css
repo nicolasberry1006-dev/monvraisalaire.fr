@@ -111,31 +111,29 @@ button:active {
 ======================== */
 
 .bar-container {
+  display: flex;
   height: 10px;
+  width: 100%;
   background: #222;
   border-radius: 10px;
   overflow: hidden;
   margin: 10px 0;
-  position: relative;
 }
 
+/* 🔴 dépenses */
 #barDepenses {
   height: 100%;
-  background: #e74c3c;
-  position: absolute;
-  left: 0;
+  background: #ff4d4d;
+  width: 0%;
+  transition: width 0.6s ease;
 }
 
+/* 🟢 reste */
 #barReste {
   height: 100%;
-  background: #2ecc71;
-  position: absolute;
-  left: 0;
-}
-
-.legend {
-  font-size: 11px;
-  color: #aaa;
+  background: #22c55e;
+  width: 0%;
+  transition: width 0.6s ease;
 }
 
 /* ========================

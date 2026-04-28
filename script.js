@@ -86,14 +86,15 @@ function calc() {
     ? "🟢 Au-dessus de la moyenne"
     : "🟡 Dans la moyenne";
 
-  // ========================
-  // 💰 ÉPARGNE
-  // ========================
+// ========================
+// 💰 ÉPARGNE INTELLIGENTE
+// ========================
 
- let tauxEpargne = 0;
+let tauxEpargne = 0;
 
+// logique dynamique
 if (ratio < 10) {
-  tauxEpargne = 0; // impossible
+  tauxEpargne = 0;
 } else if (ratio < 20) {
   tauxEpargne = 5;
 } else if (ratio < 30) {
@@ -103,18 +104,34 @@ if (ratio < 10) {
 } else {
   tauxEpargne = 20;
 }
-if (tauxEpargne === 0) {
-  reco = "❌ Impossible d’épargner dans ta situation actuelle";
-}
+
+// calcul €
 let epargneMin = Math.round(reste * (tauxEpargne / 100));
 let epargneMax = Math.round(reste * ((tauxEpargne + 10) / 100));
 
-  document.getElementById("tauxEpargne").textContent =
-    `💸 ${tauxEpargne}% de ton reste`;
+// sécurité
+epargneMin = Math.max(0, epargneMin);
+epargneMax = Math.max(0, epargneMax);
 
-  document.getElementById("recoEpargne").innerHTML =
-    `👉 ${epargneMin}€ à ${epargneMax}€ / mois<br>👉 Sans te priver`;
+// message dynamique
+let reco = "";
 
+if (reste <= 0) {
+  reco = "❌ Aucune capacité d’épargne — dépenses trop élevées";
+} else if (tauxEpargne === 0) {
+  reco = "⚠️ Situation fragile — difficile d’épargner";
+} else {
+  reco = `
+    👉 ${epargneMin}€ à ${epargneMax}€ / mois<br>
+    👉 Sans te priver
+  `;
+}
+
+// affichage
+document.getElementById("tauxEpargne").textContent =
+  `💸 ${tauxEpargne}% de ton reste`;
+
+document.getElementById("recoEpargne").innerHTML = reco;
   // ========================
   // 📈 PROJECTION
   // ========================

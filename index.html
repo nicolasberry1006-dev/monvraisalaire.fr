@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -14,7 +14,7 @@
   <h1>💰 Combien te reste-t-il vraiment ?</h1>
   <p class="subtitle">Après charges, impôts et dépenses</p>
 
-  <input type="number" id="brut" value="3500" placeholder="Salaire brut">
+  <input type="number" id="brut" placeholder="Salaire brut">
 
   <select id="statut">
     <option value="0.22">Salarié</option>
@@ -25,108 +25,105 @@
 
   <div class="input-group">
     <span>🏛️</span>
-    <input type="number" id="impot" value="10" placeholder="Impôt (%)">
+    <input type="number" id="impot" placeholder="Impôt (%)">
   </div>
 
   <button onclick="calc()">Calculer</button>
 
   <div class="card">
-    <div class="result-card">
 
-  <h2>Résultat</h2>
+    <h2>Résultat</h2>
 
-  <!-- 💰 RESTE (PRIORITÉ) -->
-  <div class="reste-main">
-    <p class="reste-title">💰 Il te reste</p>
-    <h1 id="resteAffiche">0€</h1>
+    <!-- 💰 RESTE (PRINCIPAL) -->
+    <div class="reste-main">
 
-    <div class="bar-container">
-      <div id="barDepenses"></div>
-      <div id="barReste"></div>
+      <p class="reste-title">💰 Il te reste</p>
+      <h1 id="resteAffiche">0€</h1>
+
+      <!-- ✅ SEULE VRAIE JAUGE -->
+      <div class="bar-container">
+        <div id="barDepenses"></div>
+        <div id="barReste"></div>
+      </div>
+
+      <p class="legend">🔴 Dépenses | 🟢 Reste</p>
+
+      <div id="analyse"></div>
+
     </div>
 
-    <p id="analyse"></p>
+    <!-- 🔘 BOUTON -->
+    <button onclick="toggleEpargne()" class="btn-epargne">
+      💡 Optimiser mon argent
+    </button>
+
+    <!-- 💸 ÉPARGNE (SÉPARÉE) -->
+    <div id="blocEpargne" class="epargne hidden">
+
+      <!-- petite jauge -->
+      <div class="epargne-jauge">
+        <div id="jaugeFill"></div>
+      </div>
+
+      <p id="jaugeLabel"></p>
+
+      <div class="epargne-box">
+        <p id="tauxEpargne"></p>
+        <p id="recoEpargne"></p>
+      </div>
+
+      <button onclick="partager()">📲 Partager mon résultat</button>
+
+    </div>
+
+    <!-- dépenses -->
+    <button class="toggle" onclick="toggleDepenses()">➕ Ajouter mes dépenses</button>
+
+    <div id="depensesBloc" class="hidden">
+
+      <h3>📉 Dépenses</h3>
+
+      <div class="input-group">
+        <span>🏠 Loyer</span>
+        <input type="number" id="loyer">
+        <span class="euro">€</span>
+      </div>
+
+      <div class="input-group">
+        <span>🛒 Courses</span>
+        <input type="number" id="courses">
+        <span class="euro">€</span>
+      </div>
+
+      <div class="input-group">
+        <span>🚗 Transport</span>
+        <input type="number" id="transport">
+        <span class="euro">€</span>
+      </div>
+
+      <div class="input-group">
+        <span>💡 Factures</span>
+        <input type="number" id="factures">
+        <span class="euro">€</span>
+      </div>
+
+      <div class="input-group">
+        <span>🎮 Loisirs</span>
+        <input type="number" id="loisirs">
+        <span class="euro">€</span>
+      </div>
+
+      <div class="input-group">
+        <span>🧾 Autres</span>
+        <input type="number" id="autres">
+        <span class="euro">€</span>
+      </div>
+
+    </div>
+
+    <p class="disclaimer">⚠️ Estimation basée sur des moyennes</p>
+
   </div>
-
-  <!-- 🔘 BOUTON -->
-  <button onclick="toggleEpargne()" class="btn-epargne">
-    💡 Optimiser mon argent
-  </button>
-
-  <!-- 💸 ÉPARGNE (CACHÉ) -->
-  <div id="blocEpargne" class="epargne hidden">
-
-    <div class="jauge">
-      <div id="jaugeFill"></div>
-    </div>
-    <p id="jaugeLabel"></p>
-
-    <div class="epargne-box">
-      <p id="tauxEpargne"></p>
-      <p id="recoEpargne"></p>
-    </div>
-
-    <p id="reste" class="reste">-</p>
-
-    <div class="bar-container">
-      <div id="barDepenses" class="bar red"></div>
-      <div id="barReste" class="bar green"></div>
-    </div>
-
-    <p class="legend">🔴 Dépenses | 🟢 Reste</p>
-
-    <div id="analyse"></div>
-
-    <button onclick="partager()">📲 Partager mon résultat</button>
-  </div>
-
-  <button class="toggle" onclick="toggleDepenses()">➕ Ajouter mes dépenses</button>
-
-  <div id="depensesBloc" class="hidden">
-
-    <h3>📉 Dépenses</h3>
-
-<div class="input-group">
-  <span>🏠 Loyer</span>
-  <input type="number" id="loyer" value="900">
-  <span class="euro">€</span>
-</div>
-
-<div class="input-group">
-  <span>🛒 Courses</span>
-  <input type="number" id="courses" value="400">
-  <span class="euro">€</span>
-</div>
-
-<div class="input-group">
-  <span>🚗 Transport</span>
-  <input type="number" id="transport" value="200">
-  <span class="euro">€</span>
-</div>
-
-<div class="input-group">
-  <span>💡 Factures</span>
-  <input type="number" id="factures" value="100">
-  <span class="euro">€</span>
-</div>
-
-<div class="input-group">
-  <span>🎮 Loisirs</span>
-  <input type="number" id="loisirs" value="200">
-  <span class="euro">€</span>
-</div>
-
-<div class="input-group">
-  <span>🧾 Autres</span>
-  <input type="number" id="autres" value="100">
-  <span class="euro">€</span>
-</div>
-
-  </div>
-
-  <p class="disclaimer">⚠️ Estimation basée sur des moyennes</p>
-
-</div>
 
 </div>
 
@@ -135,5 +132,3 @@
 
 </body>
 </html>
-
-

@@ -4,9 +4,9 @@
 
 function calc() {
 
-  let brut = parseFloat(document.getElementById("brut").value) || 0;
-  let tauxStatut = parseFloat(document.getElementById("statut").value) || 0;
-  let impot = (parseFloat(document.getElementById("impot").value) || 0) / 100;
+  let brut = parseFloat(document.getElementById("brut")?.value) || 0;
+  let tauxStatut = parseFloat(document.getElementById("statut")?.value) || 0;
+  let impot = (parseFloat(document.getElementById("impot")?.value) || 0) / 100;
 
   let net = brut * (1 - tauxStatut);
   let netImpot = net * (1 - impot);
@@ -22,7 +22,7 @@ function calc() {
   let reste = netImpot - depenses;
 
   let ratio = netImpot > 0 ? (reste / netImpot) * 100 : 0;
-  let percent = Math.round(ratio);
+  let tauxEpargne = Math.round(ratio);
 
   let parJour = reste / 30;
   let parAn = reste * 12;
@@ -37,147 +37,118 @@ function calc() {
   let niveau = netImpot > median ? "🟢 Au-dessus de la moyenne" : "🟡 Dans la moyenne";
 
   // ========================
-  // 💰 AFFICHAGE EXISTANT
+  // 💰 ÉPARGNE INTELLIGENTE
   // ========================
 
-  document.getElementById("net").innerText = net.toFixed(0) + "€";
-  document.getElementById("netImpot").innerText = netImpot.toFixed(0) + "€";
+  let elReste = document.getElementById("resteAffiche");
+  if (elReste) elReste.textContent = reste.toFixed(0) + "€";
 
-  document.getElementById("reste").innerHTML =
-    "💰 Reste : " + reste.toFixed(0) + "€ (" + percent + "%)";
+  let elTaux = document.getElementById("tauxEpargne");
+  if (elTaux) elTaux.textContent = tauxEpargne + "%";
 
-  document.getElementById("analyse").innerHTML = `
-    <p><b>${message}</b></p>
-    <p>💥 ${reste.toFixed(0)}€ = ${parJour.toFixed(0)}€/jour</p>
-    <p>📅 Par an : ${parAn.toFixed(0)}€</p>
-    <p>🚀 En 5 ans : ${sur5ans.toFixed(0)}€</p>
-    <br>
-    <p>📊 Médiane : ${median}€</p>
-    <p>${niveau}</p>
-  `;
+  let reco = "";
 
-  if (netImpot > 0) {
-    document.getElementById("barDepenses").style.width = (depenses / netImpot) * 100 + "%";
-    document.getElementById("barReste").style.width = (reste / netImpot) * 100 + "%";
+  if (tauxEpargne < 5) {
+    reco = "❌ Situation fragile — épargne difficile";
+  } else if (tauxEpargne < 15) {
+    reco = "⚠️ Épargne faible — vise 10 à 15%";
+  } else if (tauxEpargne < 30) {
+    reco = "👍 Bonne gestion — continue comme ça";
+  } else {
+    reco = "💸 Excellent — forte capacité d’épargne";
+  }
+
+  let epargneMin = Math.round(netImpot * 0.1);
+  let epargneMax = Math.round(netImpot * 0.2);
+
+  reco += `<br>📈 Recommandé : ${epargneMin}€ à ${epargneMax}€ / mois`;
+
+  let recoBox = document.getElementById("recoEpargne");
+  if (recoBox) recoBox.innerHTML = reco;
+
+  // ========================
+  // 📊 JAUGE
+  // ========================
+
+  let jauge = document.getElementById("jaugeFill");
+  let label = document.getElementById("jaugeLabel");
+
+  if (jauge && label) {
+
+    let couleur = "";
+
+    if (tauxEpargne < 10) couleur = "#ff4d4d";
+    else if (tauxEpargne < 20) couleur = "#ffa500";
+    else couleur = "#00ffae";
+
+    jauge.style.width = tauxEpargne + "%";
+    jauge.style.background = couleur;
+
+    label.textContent = `Capacité d’épargne : ${tauxEpargne}%`;
   }
 
   // ========================
-  // 🔥 RESULTAT PREMIUM
+  // 📊 AUTRES AFFICHAGES
   // ========================
 
-  // animation compteur
-  animateValue("resteEuro", 0, reste, 800);
+  let netEl = document.getElementById("net");
+  if (netEl) netEl.innerText = net.toFixed(0) + "€";
 
-  let restePercent = document.getElementById("restePercent");
-  if (restePercent) restePercent.textContent = percent + "%";
+  let netImpEl = document.getElementById("netImpot");
+  if (netImpEl) netImpEl.innerText = netImpot.toFixed(0) + "€";
 
-  // status
-  function getStatus(p) {
-    if (p < 20) return { class: "bad", text: "🔴 Situation fragile : marge trop faible" };
-    if (p < 30) return { class: "warning", text: "🟠 Correct mais améliorable" };
-    if (p < 40) return { class: "good", text: "🟢 Bon équilibre financier" };
-    return { class: "good", text: "🔵 Très confortable financièrement" };
+  let resteBox = document.getElementById("reste");
+  if (resteBox) {
+    resteBox.innerHTML = "💰 Reste : " + reste.toFixed(0) + "€ (" + tauxEpargne + "%)";
   }
 
-  let status = getStatus(percent);
-  let statusBox = document.getElementById("statusBox");
-
-  if (statusBox) {
-    statusBox.className = "result-status " + status.class;
-    statusBox.innerHTML = status.text;
-  }
-
-  // position
-  let positionUser = document.getElementById("positionUser");
-  if (positionUser) {
-    positionUser.innerHTML = `👉 Tu es ici : <strong>${percent}%</strong>`;
-  }
-
-  // recommandation
-  let recoBox = document.getElementById("recommandation");
-  if (recoBox) {
-    let min = Math.round(netImpot * 0.15);
-    let max = Math.round(netImpot * 0.25);
-
-    recoBox.innerHTML = `
-      👉 Idéalement : <strong>${min}€ à ${max}€ / mois</strong><br>
-      👉 Ton reste à vivre est calculé <strong>avant épargne</strong>
+  let analyseBox = document.getElementById("analyse");
+  if (analyseBox) {
+    analyseBox.innerHTML = `
+      <p><b>${message}</b></p>
+      <p>💥 ${reste.toFixed(0)}€ = ${parJour.toFixed(0)}€/jour</p>
+      <p>📅 Par an : ${parAn.toFixed(0)}€</p>
+      <p>🚀 En 5 ans : ${sur5ans.toFixed(0)}€</p>
+      <br>
+      <p>📊 Médiane : ${median}€</p>
+      <p>${niveau}</p>
     `;
-  }
 
-  // message émotionnel léger
-  if (statusBox) {
+    // ajout émotion léger (UX)
     let extra = "";
+    if (tauxEpargne < 10) extra = "😬 Zone fragile";
+    else if (tauxEpargne < 20) extra = "🙂 Peut mieux faire";
+    else extra = "🔥 Bonne gestion";
 
-    if (percent < 20) extra = "<br>😬 Tu es proche d’une zone à risque";
-    else if (percent < 30) extra = "<br>🙂 Tu peux encore optimiser";
-    else extra = "<br>🔥 Tu es au-dessus de la moyenne";
-
-    statusBox.innerHTML += extra;
+    analyseBox.innerHTML += `<p>${extra}</p>`;
   }
 
-  // share text
-  let share = document.getElementById("shareText");
-  if (share) {
-    share.textContent = `💬 Je pensais être bien… mais il me reste ${percent}% 😬`;
-  }
+  // ========================
+  // 📊 BARRES (SAFE)
+  // ========================
 
-  // reveal animation
-  let resultBox = document.getElementById("resultPremium");
-  if (resultBox) {
-    resultBox.style.opacity = 0;
-    setTimeout(() => {
-      resultBox.style.transition = "0.4s";
-      resultBox.style.opacity = 1;
-    }, 200);
+  let barDep = document.getElementById("barDepenses");
+  let barRes = document.getElementById("barReste");
+
+  if (barDep && barRes && netImpot > 0) {
+    barDep.style.width = (depenses / netImpot) * 100 + "%";
+    barRes.style.width = (reste / netImpot) * 100 + "%";
   }
 }
 
 // ========================
-// 🔥 ANIMATION
-// ========================
-
-function animateValue(id, start, end, duration) {
-  let obj = document.getElementById(id);
-  if (!obj) return;
-
-  let range = end - start;
-  let current = start;
-  let increment = range / (duration / 16);
-
-  let timer = setInterval(() => {
-    current += increment;
-
-    if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
-      current = end;
-      clearInterval(timer);
-    }
-
-    obj.textContent = Math.round(current) + "€";
-  }, 16);
-}
-
-// ========================
-// 🔥 TOGGLE DEPENSES
-// ========================
-
-function toggleDepenses() {
-  const bloc = document.getElementById("depensesBloc");
-  if (!bloc) return;
-  bloc.classList.toggle("visible");
-}
-
-// ========================
-// 🔥 PARTAGE
+// 🔥 PARTAGE (OPTIMISÉ)
 // ========================
 
 function partager() {
-  let reste = document.getElementById("resteEuro")?.textContent || "";
+
+  let reste = document.getElementById("resteAffiche")?.textContent || "";
+  let taux = document.getElementById("tauxEpargne")?.textContent || "";
 
   if (navigator.share) {
     navigator.share({
       title: "Mon reste à vivre",
-      text: `Je pensais être bien… mais il me reste ${reste} 😬`,
+      text: `Je pensais être bien… mais il me reste ${reste} (${taux}) 😬`,
       url: "https://combienreste.fr"
     });
   } else {
@@ -190,6 +161,7 @@ function partager() {
 // ========================
 
 window.addEventListener("DOMContentLoaded", () => {
+
   const ids = [
     "brut", "impot",
     "loyer", "courses", "transport",
@@ -200,4 +172,17 @@ window.addEventListener("DOMContentLoaded", () => {
     let el = document.getElementById(id);
     if (el) el.value = "";
   });
+
 });
+
+// ========================
+// 🔥 TOGGLE DEPENSES
+// ========================
+
+function toggleDepenses() {
+  const bloc = document.getElementById("depensesBloc");
+  if (!bloc) return;
+
+  bloc.classList.toggle("visible");
+  bloc.classList.toggle("hidden");
+}

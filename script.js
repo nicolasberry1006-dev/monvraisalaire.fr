@@ -36,15 +36,15 @@ function calc() {
   let niveau = netImpot > median ? "🟢 Au-dessus de la moyenne" : "🟡 Dans la moyenne";
 
   // ========================
-  // 💰 ÉPARGNE RÉALISTE
-  // ========================
+// 💰 ÉPARGNE LOGIQUE
+// ========================
 
-  let epargneMin = Math.round(reste * 0.1);
-  let epargneMax = Math.round(reste * 0.3);
+// basé sur revenu (beaucoup plus réaliste)
+let epargneMin = Math.round(netImpot * 0.05);
+let epargneMax = Math.round(netImpot * 0.15);
 
-  let tauxEpargne = netImpot > 0
-    ? Math.round((epargneMin / netImpot) * 100)
-    : 0;
+// % cohérent
+let tauxEpargne = Math.round((epargneMin / netImpot) * 100);
 
   // affichage
   let resteEl = document.getElementById("resteAffiche");
@@ -100,10 +100,11 @@ function calc() {
   let analyseBox = document.getElementById("analyse");
   if (analyseBox) {
 
-    let extra = "";
-    if (tauxEpargne < 5) extra = "😬 Épargne très faible";
-    else if (tauxEpargne < 10) extra = "🙂 Tu peux améliorer";
-    else extra = "🔥 Bonne capacité d’épargne";
+  
+   let extra = "";
+if (ratio < 20) extra = "😬 Situation fragile";
+else if (ratio < 40) extra = "🙂 Situation correcte";
+else extra = "🔥 Bonne situation";
 
     analyseBox.innerHTML = `
       <p><b>${message}</b></p>

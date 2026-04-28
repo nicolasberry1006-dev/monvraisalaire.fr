@@ -22,7 +22,6 @@ function calc() {
   let reste = netImpot - depenses;
 
   let ratio = netImpot > 0 ? (reste / netImpot) * 100 : 0;
-  let tauxEpargne = Math.round(ratio);
 
   let parJour = reste / 30;
   let parAn = reste * 12;
@@ -36,34 +35,31 @@ function calc() {
   let median = 1800;
   let niveau = netImpot > median ? "🟢 Au-dessus de la moyenne" : "🟡 Dans la moyenne";
 
+  // ========================
+  // 💰 ÉPARGNE RÉALISTE
+  // ========================
 
-// ========================
-// 💰 ÉPARGNE RÉALISTE
-// ========================
+  let epargneMin = Math.round(reste * 0.1);
+  let epargneMax = Math.round(reste * 0.3);
 
-// épargne réaliste basée sur le reste
-let epargneMin = Math.round(reste * 0.1);
-let epargneMax = Math.round(reste * 0.3);
+  let tauxEpargne = netImpot > 0
+    ? Math.round((epargneMin / netImpot) * 100)
+    : 0;
 
-// on affiche un % basé sur l'épargne réelle (pas tout le reste)
-let tauxEpargne = netImpot > 0 
-  ? Math.round((epargneMin / netImpot) * 100)
-  : 0;
+  // affichage
+  let resteEl = document.getElementById("resteAffiche");
+  if (resteEl) resteEl.textContent = reste.toFixed(0) + "€";
 
-// affichage
-let resteEl = document.getElementById("resteAffiche");
-if (resteEl) resteEl.textContent = reste.toFixed(0) + "€";
+  let tauxEl = document.getElementById("tauxEpargne");
+  if (tauxEl) tauxEl.textContent = tauxEpargne + "%";
 
-let tauxEl = document.getElementById("tauxEpargne");
-if (tauxEl) tauxEl.textContent = tauxEpargne + "%";
-
-// logique
-let reco = `
-👉 Tu peux épargner environ <strong>${epargneMin}€ à ${epargneMax}€ / mois</strong><br>
-👉 Sans te priver
-`;
-
-document.getElementById("recoEpargne").innerHTML = reco;
+  let recoBox = document.getElementById("recoEpargne");
+  if (recoBox) {
+    recoBox.innerHTML = `
+      👉 Tu peux épargner environ <strong>${epargneMin}€ à ${epargneMax}€ / mois</strong><br>
+      👉 Sans te priver
+    `;
+  }
 
   // ========================
   // 📊 JAUGE
@@ -76,14 +72,14 @@ document.getElementById("recoEpargne").innerHTML = reco;
 
     let couleur = "";
 
-    if (tauxEpargne < 10) couleur = "#ff4d4d";
-    else if (tauxEpargne < 20) couleur = "#ffa500";
+    if (tauxEpargne < 5) couleur = "#ff4d4d";
+    else if (tauxEpargne < 10) couleur = "#ffa500";
     else couleur = "#00ffae";
 
     jauge.style.width = tauxEpargne + "%";
     jauge.style.background = couleur;
 
-    label.textContent = `Capacité d’épargne : ${tauxEpargne}%`;
+    label.textContent = `Épargne possible : ${tauxEpargne}%`;
   }
 
   // ========================
@@ -98,13 +94,20 @@ document.getElementById("recoEpargne").innerHTML = reco;
 
   let resteBox = document.getElementById("reste");
   if (resteBox) {
-    resteBox.innerHTML = "💰 Reste : " + reste.toFixed(0) + "€ (" + tauxEpargne + "%)";
+    resteBox.innerHTML = "💰 Reste : " + reste.toFixed(0) + "€";
   }
 
   let analyseBox = document.getElementById("analyse");
   if (analyseBox) {
+
+    let extra = "";
+    if (tauxEpargne < 5) extra = "😬 Épargne très faible";
+    else if (tauxEpargne < 10) extra = "🙂 Tu peux améliorer";
+    else extra = "🔥 Bonne capacité d’épargne";
+
     analyseBox.innerHTML = `
       <p><b>${message}</b></p>
+      <p>${extra}</p>
       <p>💥 ${reste.toFixed(0)}€ = ${parJour.toFixed(0)}€/jour</p>
       <p>📅 Par an : ${parAn.toFixed(0)}€</p>
       <p>🚀 En 5 ans : ${sur5ans.toFixed(0)}€</p>
@@ -112,18 +115,10 @@ document.getElementById("recoEpargne").innerHTML = reco;
       <p>📊 Médiane : ${median}€</p>
       <p>${niveau}</p>
     `;
-
-    // ajout émotion léger (UX)
-    let extra = "";
-    if (tauxEpargne < 10) extra = "😬 Zone fragile";
-    else if (tauxEpargne < 20) extra = "🙂 Peut mieux faire";
-    else extra = "🔥 Bonne gestion";
-
-    analyseBox.innerHTML += `<p>${extra}</p>`;
   }
 
   // ========================
-  // 📊 BARRES (SAFE)
+  // 📊 BARRES SAFE
   // ========================
 
   let barDep = document.getElementById("barDepenses");
@@ -136,18 +131,17 @@ document.getElementById("recoEpargne").innerHTML = reco;
 }
 
 // ========================
-// 🔥 PARTAGE (OPTIMISÉ)
+// 🔥 PARTAGE
 // ========================
 
 function partager() {
 
   let reste = document.getElementById("resteAffiche")?.textContent || "";
-  let taux = document.getElementById("tauxEpargne")?.textContent || "";
 
   if (navigator.share) {
     navigator.share({
       title: "Mon reste à vivre",
-      text: `Je pensais être bien… mais il me reste ${reste} (${taux}) 😬`,
+      text: `Je pensais être bien… mais il me reste ${reste} 😬`,
       url: "https://combienreste.fr"
     });
   } else {

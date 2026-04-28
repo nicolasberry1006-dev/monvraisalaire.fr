@@ -47,17 +47,99 @@ function calc() {
   let median = 1800;
   let niveau = netImpot > median ? "🟢 Au-dessus de la moyenne" : "🟡 Dans la moyenne";
 
+// ========================
+// 💰 ÉPARGNE AMÉLIORÉE
+// ========================
+
+let epargneMin = Math.round(reste * 0.15);
+let epargneMax = Math.round(reste * 0.35);
+
+epargneMin = Math.max(0, epargneMin);
+epargneMax = Math.max(0, epargneMax);
+
+let tauxEpargne = reste > 0 
+  ? Math.round((epargneMin / reste) * 100)
+  : 0;
+
+// affichage principal
+document.getElementById("tauxEpargne").textContent =
+  `💸 ${tauxEpargne}% de ton reste`;
+
+document.getElementById("recoEpargne").innerHTML =
+  `👉 ${epargneMin}€ à ${epargneMax}€ / mois<br>
+   👉 Sans te priver`;
+
   // ========================
-  // 💰 ÉPARGNE LOGIQUE
-  // ========================
+// 📈 PROJECTION ÉPARGNE
+// ========================
 
-  let epargneMin = Math.max(0, Math.round(netImpot * 0.05));
-  let epargneMax = Math.max(0, Math.round(netImpot * 0.15));
+let an1Min = epargneMin * 12;
+let an1Max = epargneMax * 12;
 
-  let tauxEpargne = netImpot > 0
-    ? Math.max(0, Math.round((epargneMin / netImpot) * 100))
-    : 0;
+let ans10Min = an1Min * 10;
+let ans10Max = an1Max * 10;
 
+let projection = document.getElementById("projectionEpargne");
+
+if (projection) {
+  projection.innerHTML = `
+    📅 En 1 an : ${an1Min}€ à ${an1Max}€<br>
+    🚀 En 10 ans : ${ans10Min}€ à ${ans10Max}€
+  `;
+}
+  
+// ========================
+// 🏆 COMPARAISON INSEE STYLE
+// ========================
+
+let percentileText = "";
+let niveau = "";
+
+if (ratio < 5) {
+  percentileText = "bas 10%";
+  niveau = "🔴 Situation très fragile";
+}
+else if (ratio < 10) {
+  percentileText = "bas 20%";
+  niveau = "🔴 Très contraint financièrement";
+}
+else if (ratio < 20) {
+  percentileText = "30% les plus bas";
+  niveau = "🟠 Sous pression";
+}
+else if (ratio < 30) {
+  percentileText = "dans la moyenne (50%)";
+  niveau = "🟡 Équilibre standard";
+}
+else if (ratio < 40) {
+  percentileText = "top 30%";
+  niveau = "🟢 Bon niveau de vie";
+}
+else if (ratio < 50) {
+  percentileText = "top 20%";
+  niveau = "🟢 Confortable";
+}
+else if (ratio < 60) {
+  percentileText = "top 10%";
+  niveau = "🔵 Très confortable";
+}
+else if (ratio < 70) {
+  percentileText = "top 5%";
+  niveau = "🔵 Niveau de vie élevé";
+}
+else if (ratio < 80) {
+  percentileText = "top 2%";
+  niveau = "💎 Très haut niveau";
+}
+else {
+  percentileText = "top 1%";
+  niveau = "💎 Elite financière";
+}
+
+document.getElementById("comparaison").innerHTML = `
+  ${niveau}<br>
+  📊 Tu fais partie du <strong>${percentileText}</strong> en France
+`;
   // ========================
   // 📊 AFFICHAGE
   // ========================

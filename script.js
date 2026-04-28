@@ -19,9 +19,26 @@ function calc() {
   let autres = parseFloat(document.getElementById("autres")?.value) || 0;
 
   let depenses = loyer + courses + transport + factures + loisirs + autres;
+
+  // ========================
+  // 🛑 SÉCURITÉ DEPENSES
+  // ========================
+
+  if (depenses === 0) {
+    let analyseBox = document.getElementById("analyse");
+    if (analyseBox) {
+      analyseBox.innerHTML = `<p>⚠️ Ajoute tes dépenses pour un résultat réaliste</p>`;
+    }
+    return;
+  }
+
   let reste = netImpot - depenses;
 
+  // empêche négatif
+  reste = Math.max(0, reste);
+
   let ratio = netImpot > 0 ? (reste / netImpot) * 100 : 0;
+  ratio = Math.max(0, ratio);
 
   let parJour = reste / 30;
   let parAn = reste * 12;
@@ -29,24 +46,27 @@ function calc() {
 
   let message = "";
   if (ratio < 20) message = "💀 Situation fragile";
-  else if (ratio < 40) message = "⚠️ Attention, marge faible";
+  else if (ratio < 40) message = "⚠️ Situation correcte";
   else message = "🔥 Bonne situation financière";
 
   let median = 1800;
   let niveau = netImpot > median ? "🟢 Au-dessus de la moyenne" : "🟡 Dans la moyenne";
 
   // ========================
-// 💰 ÉPARGNE LOGIQUE
-// ========================
+  // 💰 ÉPARGNE LOGIQUE (basée revenu)
+  // ========================
 
-// basé sur revenu (beaucoup plus réaliste)
-let epargneMin = Math.round(netImpot * 0.05);
-let epargneMax = Math.round(netImpot * 0.15);
+  let epargneMin = Math.max(0, Math.round(netImpot * 0.05));
+  let epargneMax = Math.max(0, Math.round(netImpot * 0.15));
 
-// % cohérent
-let tauxEpargne = Math.round((epargneMin / netImpot) * 100);
+  let tauxEpargne = netImpot > 0
+    ? Math.max(0, Math.round((epargneMin / netImpot) * 100))
+    : 0;
 
-  // affichage
+  // ========================
+  // 📊 AFFICHAGE
+  // ========================
+
   let resteEl = document.getElementById("resteAffiche");
   if (resteEl) resteEl.textContent = reste.toFixed(0) + "€";
 
@@ -56,7 +76,7 @@ let tauxEpargne = Math.round((epargneMin / netImpot) * 100);
   let recoBox = document.getElementById("recoEpargne");
   if (recoBox) {
     recoBox.innerHTML = `
-      👉 Tu peux épargner environ <strong>${epargneMin}€ à ${epargneMax}€ / mois</strong><br>
+      👉 Tu peux épargner <strong>${epargneMin}€ à ${epargneMax}€ / mois</strong><br>
       👉 Sans te priver
     `;
   }
@@ -79,7 +99,7 @@ let tauxEpargne = Math.round((epargneMin / netImpot) * 100);
     jauge.style.width = tauxEpargne + "%";
     jauge.style.background = couleur;
 
-    label.textContent = `Épargne possible : ${tauxEpargne}%`;
+    label.textContent = `Épargne recommandée : ${tauxEpargne}%`;
   }
 
   // ========================
@@ -100,11 +120,14 @@ let tauxEpargne = Math.round((epargneMin / netImpot) * 100);
   let analyseBox = document.getElementById("analyse");
   if (analyseBox) {
 
-  
-   let extra = "";
-if (ratio < 20) extra = "😬 Situation fragile";
-else if (ratio < 40) extra = "🙂 Situation correcte";
-else extra = "🔥 Bonne situation";
+    let extra = "";
+    if (ratio < 20) extra = "😬 Situation fragile";
+    else if (ratio < 40) extra = "🙂 Situation correcte";
+    else extra = "🔥 Bonne gestion";
+
+    if (reste === 0) {
+      extra = "🚨 Dépenses trop élevées — aucun reste";
+    }
 
     analyseBox.innerHTML = `
       <p><b>${message}</b></p>
@@ -119,7 +142,7 @@ else extra = "🔥 Bonne situation";
   }
 
   // ========================
-  // 📊 BARRES SAFE
+  // 📊 BARRES
   // ========================
 
   let barDep = document.getElementById("barDepenses");

@@ -100,13 +100,19 @@ function calc() {
   // 📊 BARRES
   // ========================
 
-  let barDep = document.getElementById("barDepenses");
-  let barRes = document.getElementById("barReste");
+let depPercent = netImpot > 0 ? (depenses / netImpot) * 100 : 0;
+let restePercent = netImpot > 0 ? (reste / netImpot) * 100 : 0;
 
-  if (barDep && barRes && netImpot > 0) {
-    barDep.style.width = (depenses / netImpot) * 100 + "%";
-    barRes.style.width = (reste / netImpot) * 100 + "%";
-  }
+// sécurité
+depPercent = Math.max(0, Math.min(100, depPercent));
+restePercent = Math.max(0, Math.min(100, restePercent));
+
+// applique
+barDep.style.width = depPercent + "%";
+barRes.style.width = restePercent + "%";
+  .bar-container {
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+}
 
   // ========================
   // 💡 ÉPARGNE (CACHÉ)

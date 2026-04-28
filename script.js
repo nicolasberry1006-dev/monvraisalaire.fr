@@ -90,12 +90,24 @@ function calc() {
   // 💰 ÉPARGNE
   // ========================
 
-  let epargneMin = Math.max(0, Math.round(reste * 0.15));
-  let epargneMax = Math.max(0, Math.round(reste * 0.35));
+ let tauxEpargne = 0;
 
-  let tauxEpargne = reste > 0
-    ? Math.round((epargneMin / reste) * 100)
-    : 0;
+if (ratio < 10) {
+  tauxEpargne = 0; // impossible
+} else if (ratio < 20) {
+  tauxEpargne = 5;
+} else if (ratio < 30) {
+  tauxEpargne = 10;
+} else if (ratio < 40) {
+  tauxEpargne = 15;
+} else {
+  tauxEpargne = 20;
+}
+if (tauxEpargne === 0) {
+  reco = "❌ Impossible d’épargner dans ta situation actuelle";
+}
+let epargneMin = Math.round(reste * (tauxEpargne / 100));
+let epargneMax = Math.round(reste * ((tauxEpargne + 10) / 100));
 
   document.getElementById("tauxEpargne").textContent =
     `💸 ${tauxEpargne}% de ton reste`;

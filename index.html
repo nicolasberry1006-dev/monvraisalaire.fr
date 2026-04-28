@@ -34,33 +34,26 @@
 
     <h2>Résultat</h2>
 
-    <!-- 💰 RESTE (PRINCIPAL) -->
-    <div class="reste-main">
+    <p class="reste-title">💰 Il te reste</p>
+    <h1 id="resteAffiche">0€</h1>
 
-      <p class="reste-title">💰 Il te reste</p>
-      <h1 id="resteAffiche">0€</h1>
-
-      <!-- ✅ SEULE VRAIE JAUGE -->
-      <div class="bar-container">
-        <div id="barDepenses"></div>
-        <div id="barReste"></div>
-      </div>
-
-      <p class="legend">🔴 Dépenses | 🟢 Reste</p>
-
-      <div id="analyse"></div>
-
+    <!-- 🔴🟢 JAUGE -->
+    <div class="bar-container">
+      <div id="barDepenses"></div>
+      <div id="barReste"></div>
     </div>
 
-    <!-- 🔘 BOUTON -->
+    <p class="legend">🔴 Dépenses | 🟢 Reste</p>
+
+    <div id="analyse"></div>
+
+    <!-- ÉPARGNE -->
     <button onclick="toggleEpargne()" class="btn-epargne">
       💡 Optimiser mon argent
     </button>
 
-    <!-- 💸 ÉPARGNE (SÉPARÉE) -->
-    <div id="blocEpargne" class="epargne hidden">
+    <div id="blocEpargne" class="hidden">
 
-      <!-- petite jauge -->
       <div class="epargne-jauge">
         <div id="jaugeFill"></div>
       </div>
@@ -76,48 +69,17 @@
 
     </div>
 
-    <!-- dépenses -->
+    <!-- DÉPENSES -->
     <button class="toggle" onclick="toggleDepenses()">➕ Ajouter mes dépenses</button>
 
     <div id="depensesBloc" class="hidden">
 
-      <h3>📉 Dépenses</h3>
-
-      <div class="input-group">
-        <span>🏠 Loyer</span>
-        <input type="number" id="loyer">
-        <span class="euro">€</span>
-      </div>
-
-      <div class="input-group">
-        <span>🛒 Courses</span>
-        <input type="number" id="courses">
-        <span class="euro">€</span>
-      </div>
-
-      <div class="input-group">
-        <span>🚗 Transport</span>
-        <input type="number" id="transport">
-        <span class="euro">€</span>
-      </div>
-
-      <div class="input-group">
-        <span>💡 Factures</span>
-        <input type="number" id="factures">
-        <span class="euro">€</span>
-      </div>
-
-      <div class="input-group">
-        <span>🎮 Loisirs</span>
-        <input type="number" id="loisirs">
-        <span class="euro">€</span>
-      </div>
-
-      <div class="input-group">
-        <span>🧾 Autres</span>
-        <input type="number" id="autres">
-        <span class="euro">€</span>
-      </div>
+      <div class="input-group"><span>🏠 Loyer</span><input id="loyer" type="number"></div>
+      <div class="input-group"><span>🛒 Courses</span><input id="courses" type="number"></div>
+      <div class="input-group"><span>🚗 Transport</span><input id="transport" type="number"></div>
+      <div class="input-group"><span>💡 Factures</span><input id="factures" type="number"></div>
+      <div class="input-group"><span>🎮 Loisirs</span><input id="loisirs" type="number"></div>
+      <div class="input-group"><span>🧾 Autres</span><input id="autres" type="number"></div>
 
     </div>
 
@@ -127,8 +89,6 @@
 
 </div>
 
-<script src="script.js"></script>
-<script defer src="/_vercel/insights/script.js"></script>
-
+<script defer src="script.js"></script>
 </body>
 </html>

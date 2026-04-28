@@ -5,12 +5,13 @@
 body {
   background: #0f0f0f;
   color: white;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
 }
 
 .container {
   max-width: 380px;
   margin: auto;
+  padding: 10px;
 }
 
 .subtitle {
@@ -45,15 +46,15 @@ input:focus, select:focus {
 
 button {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   background: white;
   color: black;
   border: none;
   border-radius: 10px;
-  margin-top: 8px;
+  margin-top: 10px;
   font-weight: bold;
-  transition: 0.2s;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 button:hover {
@@ -85,29 +86,30 @@ button:active {
 
 .card {
   background: #1a1a1a;
-  padding: 12px;
-  border-radius: 12px;
-  margin-top: 12px;
-}
-
-.result-card {
-  background: #111;
-  padding: 20px;
-  border-radius: 15px;
+  padding: 16px;
+  border-radius: 14px;
+  margin-top: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
 }
 
 /* ========================
    💰 RESTE
 ======================== */
 
-.reste-main h1 {
-  font-size: 32px;
+.reste-title {
+  font-size: 14px;
+  color: #aaa;
+}
+
+#resteAffiche {
+  font-size: 36px;
   font-weight: bold;
   color: #2ecc71;
+  margin: 5px 0;
 }
 
 /* ========================
-   📊 JAUGE PRINCIPALE
+   📊 DOUBLE JAUGE (FIX)
 ======================== */
 
 .bar-container {
@@ -125,7 +127,7 @@ button:active {
   background: #ff4d4d;
   width: 0%;
   height: 100%;
-  transition: width 0.5s ease;
+  transition: width 0.6s ease;
 }
 
 /* 🟢 Reste */
@@ -133,8 +135,38 @@ button:active {
   background: #22c55e;
   width: 0%;
   height: 100%;
-  transition: width 0.5s ease;
+  transition: width 0.6s ease;
 }
+
+/* légende */
+.legend {
+  font-size: 11px;
+  color: #aaa;
+  margin-bottom: 10px;
+}
+
+/* ========================
+   📊 ANALYSE
+======================== */
+
+#analyse {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* ========================
+   🏆 COMPARAISON PREMIUM
+======================== */
+
+.comparaison {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #111;
+  font-size: 14px;
+  border: 1px solid #222;
+}
+
 /* ========================
    💸 ÉPARGNE
 ======================== */
@@ -144,11 +176,13 @@ button:active {
   animation: fadeIn 0.4s ease;
 }
 
+/* jauge épargne */
 .epargne-jauge {
   height: 6px;
   background: #222;
   border-radius: 10px;
   overflow: hidden;
+  margin-bottom: 8px;
 }
 
 #jaugeFill {
@@ -158,11 +192,30 @@ button:active {
   transition: 0.6s ease;
 }
 
+#jaugeLabel {
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 5px;
+}
+
+/* box épargne */
 .epargne-box {
   background: #181818;
   padding: 12px;
   border-radius: 10px;
   margin-top: 10px;
+  font-size: 14px;
+}
+
+.epargne-box p {
+  margin: 6px 0;
+}
+
+/* projection */
+#projectionEpargne {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #bbb;
 }
 
 /* ========================
@@ -187,16 +240,10 @@ button:active {
 .input-group input {
   width: 80px;
   padding: 6px;
-  border: none;
   border-radius: 6px;
   text-align: right;
   background: #2a2a2a;
   color: white;
-}
-
-.euro {
-  margin-left: 10px;
-  color: #aaa;
 }
 
 /* ========================
@@ -212,8 +259,14 @@ button:active {
 ======================== */
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ========================

@@ -200,11 +200,11 @@ function updateCustomEpargne() {
 
   if (!slider || !result) return;
 
-  const reste = parseFloat(
-    document.getElementById("resteAffiche")?.textContent.replace("€", "")
-  ) || 0;
+  // récupération propre
+  let resteText = document.getElementById("resteAffiche")?.textContent || "0";
+  let reste = parseFloat(resteText.replace(/[^\d.-]/g, "")) || 0;
 
-  const taux = parseInt(slider.value);
+  const taux = parseInt(slider.value) || 0;
 
   const montant = Math.round(reste * (taux / 100));
 
@@ -213,8 +213,9 @@ function updateCustomEpargne() {
     📅 En 1 an : ${montant * 12}€
   `;
 
-  // ⚠️ logique DANS la fonction
-  if (montant > reste * 0.4) {
+  if (reste <= 0) {
+    html = "❌ Aucun reste disponible pour épargner";
+  } else if (montant > reste * 0.4) {
     html += "<br>⚠️ Objectif très ambitieux";
   }
 

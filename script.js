@@ -107,7 +107,7 @@ if (ratio < 10) {
 
 // calcul €
 let epargneMin = Math.round(reste * (tauxEpargne / 100));
-let epargneMax = Math.round(reste * ((tauxEpargne + 10) / 100));
+let epargneMax = Math.round(reste * ((tauxEpargne + 5) / 100));
 
 // sécurité
 epargneMin = Math.max(0, epargneMin);

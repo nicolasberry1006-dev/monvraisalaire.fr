@@ -31,24 +31,40 @@
   <button onclick="calc()">Calculer</button>
 
   <div class="card">
-    <h2>Résultat</h2>
-    
-    <div class="jauge-container">
-  <div class="jauge-bar">
-    <div id="jaugeFill" class="jauge-fill"></div>
+    <div class="result-card">
+
+  <h2>Résultat</h2>
+
+  <!-- 💰 RESTE (PRIORITÉ) -->
+  <div class="reste-main">
+    <p class="reste-title">💰 Il te reste</p>
+    <h1 id="resteAffiche">0€</h1>
+
+    <div class="bar-container">
+      <div id="barDepenses"></div>
+      <div id="barReste"></div>
+    </div>
+
+    <p id="analyse"></p>
   </div>
-  <p id="jaugeLabel">0%</p>
-</div>
 
-    <p>💵 Net estimé : <b id="net">-</b></p>
-    <p>💸 Après impôt : <b id="netImpot">-</b></p>
+  <!-- 🔘 BOUTON -->
+  <button onclick="toggleEpargne()" class="btn-epargne">
+    💡 Optimiser mon argent
+  </button>
+
+  <!-- 💸 ÉPARGNE (CACHÉ) -->
+  <div id="blocEpargne" class="epargne hidden">
+
+    <div class="jauge">
+      <div id="jaugeFill"></div>
+    </div>
+    <p id="jaugeLabel"></p>
+
     <div class="epargne-box">
-  <p>💰 Reste à vivre : <strong id="resteAffiche">0€</strong></p>
-
-  <p>📊 Capacité d’épargne : <strong id="tauxEpargne">0%</strong></p>
-
-  <p id="recoEpargne"></p>
-</div>
+      <p id="tauxEpargne"></p>
+      <p id="recoEpargne"></p>
+    </div>
 
     <p id="reste" class="reste">-</p>
 

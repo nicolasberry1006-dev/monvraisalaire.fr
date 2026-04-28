@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mon vrai salaire</title>
+  <title>Combien te reste-t-il vraiment ?</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -14,6 +14,7 @@
   <h1>💰 Combien te reste-t-il vraiment ?</h1>
   <p class="subtitle">Après charges, impôts et dépenses</p>
 
+  <!-- INPUTS -->
   <input type="number" id="brut" placeholder="Salaire brut">
 
   <select id="statut">
@@ -25,19 +26,21 @@
 
   <div class="input-group">
     <span>🏛️</span>
-    <input type="number" id="impot" placeholder="Impôt (%)">
+    <input type="number" id="impot" placeholder="Taux d’imposition (%)">
   </div>
 
   <button onclick="calc()">Calculer</button>
 
+  <!-- RESULT -->
   <div class="card">
 
     <h2>Résultat</h2>
 
+    <!-- 💰 RESTE (FOCUS PRINCIPAL) -->
     <p class="reste-title">💰 Il te reste</p>
     <h1 id="resteAffiche">0€</h1>
 
-    <!-- 🔴🟢 JAUGE -->
+    <!-- 🔴🟢 DOUBLE JAUGE -->
     <div class="bar-container">
       <div id="barDepenses"></div>
       <div id="barReste"></div>
@@ -45,24 +48,32 @@
 
     <p class="legend">🔴 Dépenses | 🟢 Reste</p>
 
+    <!-- ANALYSE -->
     <div id="analyse"></div>
 
-    <!-- ÉPARGNE -->
+    <!-- 🏆 COMPARAISON PREMIUM -->
+    <div id="comparaison" class="comparaison"></div>
+
+    <!-- 💡 BOUTON ÉPARGNE -->
     <button onclick="toggleEpargne()" class="btn-epargne">
       💡 Optimiser mon argent
     </button>
 
+    <!-- 💸 BLOC ÉPARGNE -->
     <div id="blocEpargne" class="hidden">
 
+      <!-- jauge épargne -->
       <div class="epargne-jauge">
         <div id="jaugeFill"></div>
       </div>
 
       <p id="jaugeLabel"></p>
 
+      <!-- contenu -->
       <div class="epargne-box">
         <p id="tauxEpargne"></p>
         <p id="recoEpargne"></p>
+        <div id="projectionEpargne"></div>
       </div>
 
       <button onclick="partager()">📲 Partager mon résultat</button>
@@ -74,21 +85,47 @@
 
     <div id="depensesBloc" class="hidden">
 
-      <div class="input-group"><span>🏠 Loyer</span><input id="loyer" type="number"></div>
-      <div class="input-group"><span>🛒 Courses</span><input id="courses" type="number"></div>
-      <div class="input-group"><span>🚗 Transport</span><input id="transport" type="number"></div>
-      <div class="input-group"><span>💡 Factures</span><input id="factures" type="number"></div>
-      <div class="input-group"><span>🎮 Loisirs</span><input id="loisirs" type="number"></div>
-      <div class="input-group"><span>🧾 Autres</span><input id="autres" type="number"></div>
+      <div class="input-group">
+        <span>🏠 Loyer</span>
+        <input id="loyer" type="number">
+      </div>
+
+      <div class="input-group">
+        <span>🛒 Courses</span>
+        <input id="courses" type="number">
+      </div>
+
+      <div class="input-group">
+        <span>🚗 Transport</span>
+        <input id="transport" type="number">
+      </div>
+
+      <div class="input-group">
+        <span>💡 Factures</span>
+        <input id="factures" type="number">
+      </div>
+
+      <div class="input-group">
+        <span>🎮 Loisirs</span>
+        <input id="loisirs" type="number">
+      </div>
+
+      <div class="input-group">
+        <span>🧾 Autres</span>
+        <input id="autres" type="number">
+      </div>
 
     </div>
 
-    <p class="disclaimer">⚠️ Estimation basée sur des moyennes</p>
+    <p class="disclaimer">
+      ⚠️ Estimation basée sur des moyennes (INSEE simplifiée)
+    </p>
 
   </div>
 
 </div>
 
 <script defer src="script.js"></script>
+
 </body>
 </html>
